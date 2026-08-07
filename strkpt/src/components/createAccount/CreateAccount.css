@@ -8,7 +8,7 @@
     margin: 0;
   }
   
-  .login-page {
+  .signup-page {
     min-height: 100vh;
     width: 100%;
     overflow-y: auto;
@@ -33,7 +33,7 @@
   
   /* ---------------- HEADER ---------------- */
   
-  .login-header {
+  .signup-header {
     height: 135px;
   
     display: flex;
@@ -44,7 +44,7 @@
     border-bottom: 3px solid #655e64;
   }
   
-  .login-header h1 {
+  .signup-header h1 {
     margin: 0;
   
     font-size: 1.5rem;
@@ -57,7 +57,7 @@
   
   /* ---------------- MAIN ---------------- */
   
-  .login-content {
+  .signup-content {
     width: min(500px, 90%);
   
     margin: 0 auto;
@@ -67,7 +67,7 @@
     align-items: center;
   }
   
-  .login-content h2 {
+  .signup-content h2 {
     margin: 10px 0 0;
   
     font-size: 1.6rem;
@@ -75,7 +75,7 @@
     color: white;
   }
   
-  .login-subtitle {
+  .signup-subtitle {
     margin: 15px 0 40px;
   
     font-size: 1.15rem;
@@ -87,14 +87,14 @@
   
   /* ---------------- FORM ---------------- */
   
-  .login-form {
+  .signup-form {
     width: 100%;
   
     display: flex;
     flex-direction: column;
   }
   
-  .login-field {
+  .signup-field {
     width: 100%;
   
     display: flex;
@@ -103,7 +103,7 @@
     margin-bottom: 34px;
   }
   
-  .login-field label {
+  .signup-field label {
     margin-left: 18px;
     margin-bottom: 9px;
   
@@ -111,7 +111,7 @@
     font-weight: 700;
   }
   
-  .login-field input {
+  .signup-field input {
     width: 100%;
     height: 78px;
   
@@ -133,7 +133,7 @@
       box-shadow 0.2s ease;
   }
   
-  .login-field input:focus {
+  .signup-field input:focus {
     border-color: #ff00d4;
   
     box-shadow:
@@ -141,32 +141,11 @@
   }
   
   
-  /* ---------------- FORGOT LINKS ---------------- */
-  
-  .forgot-link {
-    align-self: flex-end;
-  
-    margin-top: 20px;
-  
-    border: none;
-    background: transparent;
-  
-    color: #ff00d4;
-  
-    font-size: .75rem;
-    font-weight: 700;
-  
-    cursor: pointer;
-  }
-  
-  .forgot-link:hover {
-    text-decoration: underline;
-  }
   
   
   /* ---------------- LOGIN BUTTON ---------------- */
   
-  .login-button {
+  .signup-button {
     width: 100%;
     height: 75px;
   
@@ -187,13 +166,12 @@
       background 0.15s ease;
   }
   
-  .login-button:hover {
+  .signup-button:hover {
     background: #ff28db;
   
     transform: translateY(-2px);
   }
   
-  .login-button:active {
+  .signup-button:active {
     transform: translateY(0);
   }
-  
