@@ -1,10 +1,11 @@
+// src/pages/Home.jsx
+
 import "./Home.css";
 
 import Sidebar from "../components/sidebar/Sidebar";
 import Header from "../components/header/Header";
 import SportSelection from "../components/sportselection/SportSelection";
 import Stats from "../components/stats/Stats";
-import FeaturedGames from "../components/games/FeaturedGames";
 
 function Home() {
   const user = {
@@ -15,12 +16,10 @@ function Home() {
 
   return (
     <div className="home-page">
-
       <Sidebar />
 
       <main className="home-main">
-
-        <TopBar
+        <Header
           name={user.name}
           coins={user.coins}
           streak={user.streak}
@@ -29,14 +28,31 @@ function Home() {
         <SportSelection />
 
         <section className="home-middle-row">
-          <DailyChallenge />
-          <StatsPanel />
+          <div className="daily-challenge">
+            <p className="section-label">DAILY CHALLENGE</p>
+
+            <h2>Build Your Streak</h2>
+
+            <p>
+              Win your next pick to keep your streak alive and earn bonus coins.
+            </p>
+
+            <div className="challenge-progress">
+              <div className="challenge-progress-fill"></div>
+            </div>
+
+            <div className="challenge-footer">
+              <span>{user.streak} Day Streak</span>
+              <span>+500 Coins</span>
+            </div>
+          </div>
+
+          <Stats
+            coins={user.coins}
+            streak={user.streak}
+          />
         </section>
-
-        <FeaturedGames />
-
       </main>
-
     </div>
   );
 }

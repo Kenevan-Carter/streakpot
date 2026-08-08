@@ -1,0 +1,145 @@
+
+/* src/pages/Home.css */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #090909;
+  color: #f5f5f5;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  background:
+    radial-gradient(circle at top right, rgba(255, 35, 124, 0.08), transparent 30%),
+    #090909;
+}
+
+.home-main {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px 60px;
+  margin-left: 240px;
+}
+
+/* Main middle cards */
+.home-middle-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+/* Daily challenge card */
+.daily-challenge {
+  min-height: 220px;
+  padding: 28px;
+  border: 1px solid #2d2d2d;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    #171717 0%,
+    #111111 60%,
+    #1a0d13 100%
+  );
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.section-label {
+  margin: 0 0 10px;
+  color: #ff2d82;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.daily-challenge h2 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.daily-challenge p {
+  max-width: 540px;
+  margin-top: 12px;
+  color: #a9a9a9;
+  line-height: 1.6;
+}
+
+.challenge-progress {
+  width: 100%;
+  height: 9px;
+  margin-top: 28px;
+  overflow: hidden;
+  background: #292929;
+  border-radius: 999px;
+}
+
+.challenge-progress-fill {
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff2d82, #ff6aa7);
+  border-radius: inherit;
+}
+
+.challenge-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: #d3d3d3;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Make individual sections breathe */
+.home-main > * + * {
+  margin-top: 24px;
+}
+
+.home-main > .home-middle-row {
+  margin-top: 28px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .home-main {
+    padding: 28px;
+    margin-left: 200px;
+  }
+
+  .home-middle-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .home-page {
+    display: block;
+  }
+
+  .home-main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .home-middle-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .daily-challenge {
+    padding: 22px;
+  }
+
+  .daily-challenge h2 {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,131 @@
+/* src/components/header/Header.css */
+
+.home-header {
+    width: 100%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding-bottom: 24px;
+  
+    border-bottom: 1px solid #252525;
+  }
+  
+  /* LEFT SIDE */
+  
+  .header-welcome {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header-label {
+    margin: 0 0 6px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+  
+  .header-welcome h1 {
+    margin: 0;
+  
+    color: #f5f5f5;
+  
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .header-subtitle {
+    margin: 7px 0 0;
+  
+    color: #777;
+  
+    font-size: 0.9rem;
+  }
+  
+  /* RIGHT SIDE */
+  
+  .header-account {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  
+    padding: 12px 16px 12px 22px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+    border-radius: 14px;
+  }
+  
+  .header-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .header-stat-label {
+    color: #777;
+  
+    font-size: 0.7rem;
+    font-weight: 600;
+  
+    text-transform: uppercase;
+  }
+  
+  .header-stat-value {
+    color: #eeeeee;
+  
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  
+  .header-divider {
+    width: 1px;
+    height: 30px;
+  
+    background: #303030;
+  }
+  
+  /* PROFILE CIRCLE */
+  
+  .profile-button {
+    width: 40px;
+    height: 40px;
+  
+    border: 1px solid #ff2d82;
+    border-radius: 50%;
+  
+    background: #211219;
+  
+    color: #ff2d82;
+  
+    font-size: 1rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+  
+    transition: 0.2s ease;
+  }
+  
+  .profile-button:hover {
+    background: #ff2d82;
+    color: #090909;
+  }
+  
+  /* MOBILE */
+  
+  @media (max-width: 760px) {
+    .home-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .header-account {
+      width: 100%;
+    }
+  }

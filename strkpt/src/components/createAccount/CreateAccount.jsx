@@ -50,6 +50,7 @@ function CreateAccount() {
     }
 
     console.log("Account created:", user);
+    navigate("/home");
   };
 
   return (
