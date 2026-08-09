@@ -11,7 +11,7 @@ function Home() {
   const user = {
     name: "Kenevan",
     coins: 12450,
-    streak: 7,
+    streak: 8,
   };
 
   return (
