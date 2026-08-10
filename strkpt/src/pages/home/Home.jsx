@@ -2,10 +2,10 @@
 
 import "./Home.css";
 
-import Sidebar from "../components/sidebar/Sidebar";
-import Header from "../components/header/Header";
-import SportSelection from "../components/sportselection/SportSelection";
-import Stats from "../components/stats/Stats";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Header from "../../components/header/Header";
+import SportSelection from "../../components/sportselection/SportSelection";
+import Stats from "../../components/stats/Stats";
 
 function Home() {
   const user = {
