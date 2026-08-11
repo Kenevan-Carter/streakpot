@@ -175,3 +175,29 @@
   .signup-button:active {
     transform: translateY(0);
   }
+  .account-message {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 4px 0 12px;
+  
+    border-radius: 8px;
+  
+    font-size: 0.9rem;
+    font-weight: 500;
+  
+    text-align: center;
+  }
+  
+  /* Error */
+  .account-message.error {
+    color: #ff6b8f;
+    background: rgba(255, 45, 130, 0.08);
+    border: 1px solid #ff2d82;
+  }
+  
+  /* Success */
+  .account-message.success {
+    color: #8cffb0;
+    background: rgba(50, 200, 100, 0.08);
+    border: 1px solid #48d47b;
+  }

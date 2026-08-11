@@ -5,16 +5,25 @@ import "./CreateAccount.css";
 
 function CreateAccount() {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Clear old message
+    setMessage("");
+    setMessageType("");
 
     if (password !== confirmPassword) {
-      console.error("Passwords do not match");
+      setMessage("Passwords do not match.");
+      setMessageType("error");
       return;
     }
 
@@ -24,14 +33,16 @@ function CreateAccount() {
     });
 
     if (error) {
-      console.error("Signup error:", error.message);
+      setMessage(error.message);
+      setMessageType("error");
       return;
     }
 
     const user = data.user;
 
     if (!user) {
-      console.error("No user returned from signup");
+      setMessage("Account could not be created. Please try again.");
+      setMessageType("error");
       return;
     }
 
@@ -45,19 +56,23 @@ function CreateAccount() {
       ]);
 
     if (profileError) {
-      console.error("Profile creation error:", profileError.message);
+      setMessage(profileError.message);
+      setMessageType("error");
       return;
     }
 
-    console.log("Account created:", user);
-    navigate("/home");
+    setMessage("Account created successfully!");
+    setMessageType("success");
+
+    // Optional: wait a little so the user can see the success message
+    setTimeout(() => {
+      navigate("/");
+    }, 1200);
   };
 
   return (
     <div className="signup-page">
-      <header className="signup-header">
-        <h1>Streak Bet</h1>
-      </header>
+      <h1>Streak Bet</h1>
 
       <main className="signup-content">
         <h2>Sign Up</h2>
@@ -74,7 +89,7 @@ function CreateAccount() {
               id="username"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(event) => setUsername(event.target.value)}
               required
             />
           </div>
@@ -86,7 +101,7 @@ function CreateAccount() {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
           </div>
@@ -98,7 +113,7 @@ function CreateAccount() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
               required
             />
           </div>
@@ -112,20 +127,28 @@ function CreateAccount() {
               id="confirmPassword"
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(event) => setConfirmPassword(event.target.value)}
               required
             />
           </div>
 
+          {message && (
+            <div className={`account-message ${messageType}`}>
+              {message}
+            </div>
+          )}
+
           <button className="signup-button" type="submit">
             Create Account
           </button>
-          <button className="return-button " type="button" 
-          onClick={() => navigate("/")}
+
+          <button
+            className="return-button"
+            type="button"
+            onClick={() => navigate("/")}
           >
             Return to Login
           </button>
-
         </form>
       </main>
     </div>
