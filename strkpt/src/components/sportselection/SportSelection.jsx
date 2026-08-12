@@ -1,8 +1,11 @@
-
 // src/components/sportselection/SportSelection.jsx
+
 import "./SportSelection.css";
+import { useNavigate } from "react-router-dom";
 
 function SportSelection() {
+  const navigate = useNavigate();
+
   const sports = [
     { name: "NBA", icon: "🏀" },
     { name: "NFL", icon: "🏈" },
@@ -10,6 +13,15 @@ function SportSelection() {
     { name: "NHL", icon: "🏒" },
     { name: "Soccer", icon: "⚽" },
   ];
+
+  const handleSportClick = (sportName) => {
+    if (sportName === "NFL") {
+      navigate("/sports/nfl");
+    }
+    else if (sportName === "NBA") {
+        navigate("/sports/nba");
+        }
+  };
 
   return (
     <section className="sport-selection">
@@ -29,7 +41,7 @@ function SportSelection() {
           <button
             key={sport.name}
             className="sport-card"
-            onClick={() => console.log(`${sport.name} selected`)}
+            onClick={() => handleSportClick(sport.name)}
           >
             <span className="sport-icon">{sport.icon}</span>
             <span className="sport-name">{sport.name}</span>

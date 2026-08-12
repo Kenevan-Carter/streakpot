@@ -1,0 +1,500 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .nba-page {
+    min-height: 100vh;
+  
+    display: flex;
+  
+    background: #090909;
+  
+    color: #f5f5f5;
+  }
+  
+  .nba-main {
+    flex: 1;
+  
+    margin-left: 240px;
+  
+    padding: 32px 40px 60px;
+  }
+  
+  
+  /* =========================
+     PAGE HEADER
+  ========================= */
+  
+  .nba-page-header {
+    margin-bottom: 28px;
+  }
+  
+  .nba-small-title {
+    margin: 0 0 4px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.75rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.15em;
+  }
+  
+  .nba-page-header h1 {
+    margin: 0;
+  
+    font-size: 2rem;
+  }
+  
+  .nba-page-header > p:last-child {
+    margin-top: 7px;
+  
+    color: #777;
+  
+    font-size: 0.9rem;
+  }
+  
+  
+  /* =========================
+     DATE
+  ========================= */
+  
+  .nba-date-header {
+    display: flex;
+  
+    align-items: flex-end;
+    justify-content: space-between;
+  
+    padding-bottom: 16px;
+  
+    margin-bottom: 12px;
+  
+    border-bottom: 1px solid #292929;
+  }
+  
+  .nba-date-label {
+    margin: 0 0 5px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.13em;
+  }
+  
+  .nba-date-header h2 {
+    margin: 0;
+  
+    font-size: 1.25rem;
+  }
+  
+  .game-count {
+    color: #666;
+  
+    font-size: 0.75rem;
+  }
+  
+  
+  /* =========================
+     GAME LIST
+  ========================= */
+  
+  .nba-games-list {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 12px;
+  }
+  
+  
+  /* =========================
+     GAME ROW
+  ========================= */
+  
+  .nba-game-row {
+    width: 100%;
+  
+    min-height: 105px;
+  
+    display: grid;
+  
+    grid-template-columns:
+      130px
+      1fr
+      130px;
+  
+    align-items: center;
+  
+    padding: 15px 18px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  
+    /* no rounded corners on container */
+    border-radius: 0;
+  }
+  
+  
+  /* =========================
+     GAME INFO
+  ========================= */
+  
+  .nba-game-info {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 7px;
+  }
+  
+  .league-label {
+    color: #ff2d82;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.12em;
+  }
+  
+  .nba-game-time {
+    color: #777;
+  
+    font-size: 0.75rem;
+  }
+  
+  
+  /* G LEAGUE INDICATOR */
+  
+  .g-league-label {
+    color: #b5b5b5;
+  }
+  
+  .g-league-game {
+    border-left: 2px solid #555;
+  }
+  
+  
+  /* =========================
+     PICKS
+  ========================= */
+  
+  .nba-game-picks {
+    display: grid;
+  
+    grid-template-columns:
+      1fr
+      45px
+      1fr;
+  
+    align-items: center;
+  
+    gap: 10px;
+  }
+  
+  
+  /* =========================
+     TEAM BUTTON
+  ========================= */
+  
+  .nba-pick-button {
+    min-height: 64px;
+  
+    display: flex;
+  
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 0 18px;
+  
+    background: #181818;
+  
+    border: 1px solid #333;
+  
+    /*
+      Only buttons get
+      rounded corners
+    */
+  
+    border-radius: 10px;
+  
+    color: #f5f5f5;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease;
+  }
+  
+  
+  /* HOVER */
+  
+  .nba-pick-button:hover {
+    border-color: #ff2d82;
+  
+    background: #21161b;
+  
+    transform: translateY(-1px);
+  }
+  
+  
+  /* SELECTED */
+  
+  .nba-pick-button.selected {
+    background: #ff2d82;
+  
+    border-color: #ff2d82;
+  
+    color: #090909;
+  }
+  
+  
+  .nba-team-name {
+    font-size: 1rem;
+  
+    font-weight: 700;
+  
+    text-align: left;
+  }
+  
+  .nba-team-percent {
+    font-size: 0.8rem;
+  
+    font-weight: 700;
+  
+    opacity: 0.75;
+  }
+  
+  
+  /* =========================
+     VS
+  ========================= */
+  
+  .nba-vs {
+    color: #666;
+  
+    font-size: 0.75rem;
+  
+    font-weight: 700;
+  
+    text-align: center;
+  }
+  
+  
+  /* =========================
+     SELECTION
+  ========================= */
+  
+  .nba-selection-status {
+    color: #666;
+  
+    font-size: 0.75rem;
+  
+    text-align: right;
+  }
+  
+  .nba-selection-status span {
+    display: block;
+  
+    margin-top: 4px;
+  
+    color: #ff2d82;
+  
+    font-weight: 700;
+  }
+  
+  
+  /* =========================
+     TABLET
+  ========================= */
+  
+  @media (max-width: 1000px) {
+  
+    .nba-main {
+      margin-left: 200px;
+  
+      padding: 28px;
+    }
+  
+    .nba-game-row {
+      grid-template-columns:
+        100px
+        1fr;
+    }
+  
+    .nba-selection-status {
+      display: none;
+    }
+  
+  }
+  
+  
+  /* =========================
+     MOBILE
+  ========================= */
+  
+  @media (max-width: 760px) {
+  
+    .nba-main {
+      margin-left: 0;
+  
+      padding: 20px;
+    }
+  
+    .nba-game-row {
+      display: block;
+    }
+  
+    .nba-game-info {
+      margin-bottom: 12px;
+    }
+  
+    .nba-game-picks {
+      grid-template-columns: 1fr;
+    }
+  
+    .nba-vs {
+      padding: 3px 0;
+    }
+  
+    .nba-pick-button {
+      width: 100%;
+    }
+  
+    .nba-date-header {
+      align-items: flex-start;
+  
+      flex-direction: column;
+  
+      gap: 7px;
+    }
+  
+  }
+  .nba-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 30px;
+  
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+  
+    border-bottom: 1px solid #292929;
+  }
+  
+  .nba-header-left {
+    flex: 1;
+  }
+  
+  .nba-small-title {
+    margin: 0 0 4px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+  
+  .nba-page-header h1 {
+    margin: 0;
+  
+    color: #f5f5f5;
+  
+    font-size: 2rem;
+  }
+  
+  .nba-header-description {
+    margin: 7px 0 0;
+  
+    color: #777;
+  
+    font-size: 0.9rem;
+  }
+  
+  
+  /* CONTEST INFORMATION */
+  
+  .nba-contest-info {
+    display: flex;
+    align-items: center;
+  
+    gap: 24px;
+  
+    padding: 14px 20px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  }
+  
+  
+  /* INDIVIDUAL STAT */
+  
+  .nba-contest-stat {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 5px;
+  }
+  
+  .contest-stat-label {
+    color: #666;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.08em;
+  
+    text-transform: uppercase;
+  }
+  
+  .contest-stat-value {
+    color: #f5f5f5;
+  
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  
+  
+  /* POT */
+  
+  .pot-highlight {
+    color: #ff2d82;
+  
+    font-size: 1.15rem;
+  }
+  
+  
+  /* DIVIDER */
+  
+  .nba-header-divider {
+    width: 1px;
+    height: 35px;
+  
+    background: #303030;
+  }
+  
+  
+  /* MOBILE */
+  
+  @media (max-width: 900px) {
+  
+    .nba-page-header {
+      align-items: flex-start;
+  
+      flex-direction: column;
+    }
+  
+    .nba-contest-info {
+      width: 100%;
+  
+      justify-content: space-between;
+    }
+  
+  }
