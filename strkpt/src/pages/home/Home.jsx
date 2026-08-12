@@ -29,7 +29,9 @@ function Home() {
 
         <section className="home-middle-row">
           <div className="daily-challenge">
-            <p className="section-label">DAILY CHALLENGE</p>
+            <p className="section-label">
+              DAILY CHALLENGE
+            </p>
 
             <h2>Build Your Streak</h2>
 

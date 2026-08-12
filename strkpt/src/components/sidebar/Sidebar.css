@@ -92,3 +92,31 @@
 
   border-top: 1px solid #252525;
 }
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    width: 240px;
+    height: 100vh;
+  
+    padding: 30px 20px;
+  
+    display: flex;
+    flex-direction: column;
+  
+    background: #0d0d0d;
+    border-right: 1px solid #292929;
+  }
+  
+  .sidebar-bottom {
+    margin-top: auto;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  
+    padding-top: 20px;
+  
+    border-top: 1px solid #252525;
+  }

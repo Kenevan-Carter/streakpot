@@ -1,10 +1,22 @@
-
 // src/components/sidebar/Sidebar.jsx
+
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/supabase";
 
 function Sidebar() {
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error("Logout error:", error.message);
+      return;
+    }
+
+    navigate("/");
+  };
 
   return (
     <aside className="sidebar">
@@ -41,11 +53,16 @@ function Sidebar() {
         <button className="sidebar-link">
           Settings
         </button>
+
+        <button
+          className="sidebar-link logout-button"
+          onClick={handleLogout}
+        >
+          Log Out
+        </button>
       </div>
     </aside>
   );
 }
 
 export default Sidebar;
-
-
