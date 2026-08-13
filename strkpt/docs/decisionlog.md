@@ -146,3 +146,6 @@ Also allow them to create their own entry
                     );
 
 Protected Route Functionality to ony allow users to be logged in to get to different pages
+
+Create Admin Page and change profiles table for support for admin and user roles.
+Admin roles will have a different sidebar feature that allows them to choose games for the contest

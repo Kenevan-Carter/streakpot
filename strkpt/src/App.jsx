@@ -10,6 +10,10 @@ import CreateAccount from "./components/createAccount/CreateAccount";
 import Home from "./pages/home/Home";
 import NBA from "./pages/sports/nba/NBA";
 import NFL from "./pages/sports/nfl/NFL";
+import Admin from "./pages/admin/Admin";
+import AdminRoute from "./components/adminroute/AdminRoute";
+import UserTable from "./pages/admin/usertable/UserTable";
+import CreateTable from "./pages/admin/createcontest/CreateContest";
 
 import ProtectedRoute from "./components/protectedroute/ProtectedRoute";
 
@@ -59,9 +63,38 @@ function App() {
             </ProtectedRoute>
           }
         />
+        
+          {/* Admin routes */}
+          <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <Admin />
+          </AdminRoute>
+  }
+            />
+            <Route
 
+            path="/admin/usertable"
+            element={
+              <AdminRoute>
+                <UserTable />
+
+          </AdminRoute>
+          }
+          />
+          <Route
+
+          path="/admin/createcontest"
+          element={
+            <AdminRoute>
+              <CreateTable />
+        </AdminRoute>
+        }
+/>
       </Routes>
     </BrowserRouter>
+    
   );
 }
 
