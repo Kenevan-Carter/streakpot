@@ -8,11 +8,6 @@ function Admin() {
     <div className="admin-page">
       <header className="admin-header">
         <p className="admin-label">STREAKBET ADMIN</p>
-        <h1>Admin Dashboard</h1>
-
-        <p>
-          Manage contests, games, users, and results.
-        </p>
       </header>
 
       <section className="admin-grid">
@@ -25,11 +20,8 @@ function Admin() {
           </span>
 
           <h2>Manage Contests</h2>
+          
 
-          <p>
-            Create contests, set entry fees, open or close entries,
-            and view current pots.
-          </p>
         </button>
 
         <button

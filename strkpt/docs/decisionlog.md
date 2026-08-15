@@ -149,3 +149,6 @@ Protected Route Functionality to ony allow users to be logged in to get to diffe
 
 Create Admin Page and change profiles table for support for admin and user roles.
 Admin roles will have a different sidebar feature that allows them to choose games for the contest
+
+chose the Balldontlie API for sports games since its free and easy to use. Also would eventually have to pay for stats and box scores.
+

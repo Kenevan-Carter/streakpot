@@ -47,7 +47,7 @@ function App() {
         />
 
         <Route
-          path="/games/nba"
+          path="/sports/nba"
           element={
             <ProtectedRoute>
               <NBA />

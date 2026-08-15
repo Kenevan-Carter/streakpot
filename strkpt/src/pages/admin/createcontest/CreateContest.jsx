@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { getGamesForDates } from "../../../services/sportsApi";
+import { supabase } from "../../../lib/supabase";
 import "./CreateContest.css";
 
 function CreateContest() {
@@ -6,185 +8,123 @@ function CreateContest() {
   const [selectedGames, setSelectedGames] = useState([]);
   const [entryFee, setEntryFee] = useState(3);
 
+  const [games, setGames] = useState([]);
+  const [loadingGames, setLoadingGames] = useState(false);
+  const [gameError, setGameError] = useState("");
+
+  const [creatingContest, setCreatingContest] = useState(false);
+  const [contestMessage, setContestMessage] = useState("");
+
   const sports = ["NBA", "NFL", "MLB", "NHL", "EPL"];
 
-  const games = {
-    NBA: [
-      {
-        id: "nba-1",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Minnesota Timberwolves",
-        home: "Denver Nuggets",
-        time: "6:00 PM",
-      },
-      {
-        id: "nba-2",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Boston Celtics",
-        home: "New York Knicks",
-        time: "6:30 PM",
-      },
-      {
-        id: "nba-3",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Los Angeles Lakers",
-        home: "Golden State Warriors",
-        time: "9:00 PM",
-      },
-      {
-        id: "nba-4",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Milwaukee Bucks",
-        home: "Cleveland Cavaliers",
-        time: "7:00 PM",
-      },
+  const formatDateForAPI = (date) => {
+    const year = date.getFullYear();
 
-      {
-        id: "nba-5",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "Phoenix Suns",
-        home: "Sacramento Kings",
-        time: "9:30 PM",
-      },
-      {
-        id: "nba-6",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "Dallas Mavericks",
-        home: "Houston Rockets",
-        time: "8:00 PM",
-      },
-      {
-        id: "nba-7",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "Miami Heat",
-        home: "Orlando Magic",
-        time: "6:00 PM",
-      },
-      {
-        id: "nba-8",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "San Antonio Spurs",
-        home: "Memphis Grizzlies",
-        time: "7:30 PM",
-      },
-    ],
+    const month = String(
+      date.getMonth() + 1
+    ).padStart(2, "0");
 
-    NFL: [
-      {
-        id: "nfl-1",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Minnesota Vikings",
-        home: "Green Bay Packers",
-        time: "7:00 PM",
-      },
-      {
-        id: "nfl-2",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "Detroit Lions",
-        home: "Chicago Bears",
-        time: "7:00 PM",
-      },
-    ],
+    const day = String(
+      date.getDate()
+    ).padStart(2, "0");
 
-    MLB: [
-      {
-        id: "mlb-1",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Minnesota Twins",
-        home: "Detroit Tigers",
-        time: "12:10 PM",
-      },
-      {
-        id: "mlb-2",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "New York Yankees",
-        home: "Boston Red Sox",
-        time: "6:10 PM",
-      },
-    ],
-
-    NHL: [
-      {
-        id: "nhl-1",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Minnesota Wild",
-        home: "Colorado Avalanche",
-        time: "7:00 PM",
-      },
-      {
-        id: "nhl-2",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "Toronto Maple Leafs",
-        home: "Boston Bruins",
-        time: "6:00 PM",
-      },
-    ],
-
-    EPL: [
-      {
-        id: "epl-1",
-        date: "2026-08-12",
-        dateLabel: "Wed August 12th",
-        away: "Arsenal",
-        home: "Chelsea",
-        time: "10:00 AM",
-      },
-      {
-        id: "epl-2",
-        date: "2026-08-13",
-        dateLabel: "Thu August 13th",
-        away: "Liverpool",
-        home: "Manchester City",
-        time: "12:30 PM",
-      },
-    ],
+    return `${year}-${month}-${day}`;
   };
 
-  const currentGames = games[selectedSport] || [];
+  const getContestDates = () => {
+    const today = new Date();
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    return [
+      formatDateForAPI(today),
+      formatDateForAPI(tomorrow),
+    ];
+  };
+
+  const formatDateHeading = (dateString) => {
+    const date = new Date(`${dateString}T12:00:00`);
+
+    return date
+      .toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "long",
+        day: "numeric",
+      })
+      .replace(",", "");
+  };
+
+  const formatGameTime = (startsAt) => {
+    if (!startsAt) {
+      return "TBD";
+    }
+
+    return new Date(startsAt).toLocaleTimeString(
+      "en-US",
+      {
+        hour: "numeric",
+        minute: "2-digit",
+      }
+    );
+  };
+
+  useEffect(() => {
+    const loadGames = async () => {
+      setLoadingGames(true);
+      setGameError("");
+      setContestMessage("");
+      setSelectedGames([]);
+
+      try {
+        const dates = getContestDates();
+
+        const gameData = await getGamesForDates(
+          selectedSport,
+          dates
+        );
+
+        setGames(gameData);
+      } catch (error) {
+        console.error("Game API error:", error);
+
+        setGameError(error.message);
+        setGames([]);
+      } finally {
+        setLoadingGames(false);
+      }
+    };
+
+    loadGames();
+  }, [selectedSport]);
 
   const gamesByDate = useMemo(() => {
-    return currentGames.reduce((groups, game) => {
+    return games.reduce((groups, game) => {
       if (!groups[game.date]) {
-        groups[game.date] = {
-          label: game.dateLabel,
-          games: [],
-        };
+        groups[game.date] = [];
       }
 
-      groups[game.date].games.push(game);
+      groups[game.date].push(game);
 
       return groups;
     }, {});
-  }, [currentGames]);
+  }, [games]);
 
   const handleSportChange = (sport) => {
     setSelectedSport(sport);
-    setSelectedGames([]);
   };
 
   const handleGameSelect = (game) => {
     setSelectedGames((previousGames) => {
       const alreadySelected = previousGames.some(
-        (selectedGame) => selectedGame.id === game.id
+        (selectedGame) =>
+          selectedGame.id === game.id
       );
 
       if (alreadySelected) {
         return previousGames.filter(
-          (selectedGame) => selectedGame.id !== game.id
+          (selectedGame) =>
+            selectedGame.id !== game.id
         );
       }
 
@@ -193,20 +133,119 @@ function CreateContest() {
   };
 
   const isSelected = (gameId) => {
-    return selectedGames.some((game) => game.id === gameId);
+    return selectedGames.some(
+      (game) => game.id === gameId
+    );
   };
 
-  const handleCreateContest = () => {
+  const handleCreateContest = async () => {
     if (selectedGames.length === 0) {
-      alert("Select at least one game.");
+      setContestMessage(
+        "Select at least one game."
+      );
       return;
     }
 
-    console.log({
-      sport: selectedSport,
-      entryFee,
-      selectedGames,
-    });
+    setCreatingContest(true);
+    setContestMessage("");
+
+    try {
+      const startTimes = selectedGames
+        .map((game) => game.startsAt)
+        .filter(Boolean)
+        .map((time) => new Date(time))
+        .filter(
+          (date) =>
+            !Number.isNaN(date.getTime())
+        );
+
+      const earliestGame =
+        startTimes.length > 0
+          ? new Date(
+              Math.min(
+                ...startTimes.map((date) =>
+                  date.getTime()
+                )
+              )
+            )
+          : null;
+
+      // Create contest row
+      const {
+        data: contest,
+        error: contestError,
+      } = await supabase
+        .from("contests")
+        .insert({
+          sport: selectedSport,
+          title: `${selectedSport} Daily Contest`,
+          entry_fee_cents: entryFee * 100,
+          status: "open",
+          starts_at: earliestGame
+            ? earliestGame.toISOString()
+            : null,
+          closes_at: earliestGame
+            ? earliestGame.toISOString()
+            : null,
+        })
+        .select()
+        .single();
+
+      if (contestError) {
+        throw new Error(
+          `Contest creation failed: ${contestError.message}`
+        );
+      }
+
+      // Convert selected API games into database rows
+      const gamesToInsert = selectedGames.map(
+        (game) => ({
+          contest_id: contest.id,
+
+          provider_game_id:
+            game.providerId != null
+              ? String(game.providerId)
+              : null,
+
+          league: selectedSport,
+
+          away_team: game.away,
+          home_team: game.home,
+
+          starts_at: game.startsAt || null,
+
+          status: "scheduled",
+        })
+      );
+
+      // Insert selected games
+      const { error: gamesError } =
+        await supabase
+          .from("games")
+          .insert(gamesToInsert);
+
+      if (gamesError) {
+        throw new Error(
+          `Contest created, but games failed: ${gamesError.message}`
+        );
+      }
+
+      setContestMessage(
+        `${selectedSport} contest created successfully with ${selectedGames.length} games!`
+      );
+
+      setSelectedGames([]);
+      setEntryFee(3);
+    } catch (error) {
+      console.error(
+        "Create contest error:",
+        error
+      );
+
+      setContestMessage(error.message);
+    } finally {
+      setCreatingContest(false);
+    }
   };
 
   return (
@@ -216,9 +255,13 @@ function CreateContest() {
           <button
             key={sport}
             className={`sport-tab ${
-              selectedSport === sport ? "active" : ""
+              selectedSport === sport
+                ? "active"
+                : ""
             }`}
-            onClick={() => handleSportChange(sport)}
+            onClick={() =>
+              handleSportChange(sport)
+            }
           >
             {sport}
           </button>
@@ -227,52 +270,86 @@ function CreateContest() {
 
       <div className="contest-game-panel">
         <div className="game-scroll-area">
-          {Object.entries(gamesByDate).map(
-            ([date, dateGroup]) => (
-              <div className="date-group" key={date}>
-                <div className="date-heading">
-                  {dateGroup.label}
-                </div>
-
-                <div className="date-games">
-                  {dateGroup.games.map((game) => (
-                    <label
-                      key={game.id}
-                      className={`game-row ${
-                        isSelected(game.id)
-                          ? "selected"
-                          : ""
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={isSelected(game.id)}
-                        onChange={() =>
-                          handleGameSelect(game)
-                        }
-                      />
-
-                      <div className="game-info">
-                        <div className="game-teams">
-                          <span>{game.away}</span>
-
-                          <span className="game-at">
-                            @
-                          </span>
-
-                          <span>{game.home}</span>
-                        </div>
-
-                        <span className="game-time">
-                          {game.time}
-                        </span>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )
+          {loadingGames && (
+            <p className="game-loading">
+              Loading {selectedSport} games...
+            </p>
           )}
+
+          {gameError && (
+            <p className="game-error">
+              {gameError}
+            </p>
+          )}
+
+          {!loadingGames &&
+            !gameError &&
+            games.length === 0 && (
+              <p className="no-games">
+                No {selectedSport} games found
+                for today or tomorrow.
+              </p>
+            )}
+
+          {!loadingGames &&
+            !gameError &&
+            Object.entries(gamesByDate).map(
+              ([date, dateGames]) => (
+                <div
+                  className="date-group"
+                  key={date}
+                >
+                  <div className="date-heading">
+                    {formatDateHeading(date)}
+                  </div>
+
+                  <div className="date-games">
+                    {dateGames.map((game) => (
+                      <label
+                        key={game.id}
+                        className={`game-row ${
+                          isSelected(game.id)
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected(
+                            game.id
+                          )}
+                          onChange={() =>
+                            handleGameSelect(game)
+                          }
+                        />
+
+                        <div className="game-info">
+                          <div className="game-teams">
+                            <span>
+                              {game.away}
+                            </span>
+
+                            <span className="game-at">
+                              @
+                            </span>
+
+                            <span>
+                              {game.home}
+                            </span>
+                          </div>
+
+                          <span className="game-time">
+                            {formatGameTime(
+                              game.startsAt
+                            )}
+                          </span>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )
+            )}
         </div>
       </div>
 
@@ -312,12 +389,23 @@ function CreateContest() {
           </select>
         </div>
 
-        <button
-          className="create-contest-button"
-          onClick={handleCreateContest}
-        >
-          Create Contest
-        </button>
+        <div className="contest-create-section">
+          <button
+            className="create-contest-button"
+            onClick={handleCreateContest}
+            disabled={creatingContest}
+          >
+            {creatingContest
+              ? "Creating..."
+              : "Create Contest"}
+          </button>
+
+          {contestMessage && (
+            <p className="contest-message">
+              {contestMessage}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
