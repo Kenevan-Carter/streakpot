@@ -152,3 +152,4 @@ Admin roles will have a different sidebar feature that allows them to choose gam
 
 chose the Balldontlie API for sports games since its free and easy to use. Also would eventually have to pay for stats and box scores.
 
+starting next work session, i will add functionality to perform row operations under security standards
