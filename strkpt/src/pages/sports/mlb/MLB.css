@@ -1,0 +1,515 @@
+.mlb-page {
+    min-height: 100vh;
+  
+    background: #090909;
+    color: #f5f5f5;
+  }
+  
+  .mlb-main {
+    margin-left: 240px;
+  
+    padding: 32px;
+  
+    min-height: 100vh;
+  }
+  
+  
+  /* -------------------------------- */
+  /* CONTEST SELECTOR */
+  /* -------------------------------- */
+  
+  .mlb-contest-selector {
+    margin-bottom: 18px;
+  
+    padding: 16px 18px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  }
+  
+  .mlb-contest-selector-label {
+    margin-bottom: 12px;
+  
+    color: #777;
+  
+    font-size: 0.68rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.12em;
+  }
+  
+  .mlb-contest-buttons {
+    display: flex;
+  
+    gap: 10px;
+  
+    overflow-x: auto;
+  
+    padding-bottom: 3px;
+  }
+  
+  .mlb-contest-button {
+    min-width: 170px;
+  
+    padding: 12px 16px;
+  
+    background: #181818;
+  
+    border: 1px solid #333;
+  
+    color: #aaa;
+  
+    cursor: pointer;
+  
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 10px;
+  }
+  
+  .mlb-contest-button:hover {
+    border-color: #ff2d82;
+  
+    color: white;
+  }
+  
+  .mlb-contest-button.active {
+    background: rgba(255, 45, 130, 0.1);
+  
+    border-color: #ff2d82;
+  
+    color: white;
+  }
+  
+  .mlb-contest-button-title {
+    font-size: 0.83rem;
+    font-weight: 600;
+  
+    white-space: nowrap;
+  }
+  
+  .mlb-contest-button-info {
+    color: #ff2d82;
+  
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  
+  .mlb-contest-closed {
+    color: #777;
+  
+    font-size: 0.62rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.08em;
+  }
+  
+  
+  /* -------------------------------- */
+  /* HEADER */
+  /* -------------------------------- */
+  
+  .mlb-page-header {
+    display: flex;
+  
+    justify-content: space-between;
+    align-items: center;
+  
+    gap: 30px;
+  
+    margin-bottom: 20px;
+  
+    padding: 26px 28px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  }
+  
+  .mlb-header-left {
+    flex: 1;
+  }
+  
+  .mlb-small-title {
+    margin: 0 0 7px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.7rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.13em;
+  }
+  
+  .mlb-header-left h1 {
+    margin: 0;
+  
+    color: white;
+  
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .mlb-header-description {
+    margin: 7px 0 0;
+  
+    color: #777;
+  
+    font-size: 0.88rem;
+  }
+  
+  .mlb-contest-close-time {
+    margin: 10px 0 0;
+  
+    color: #aaa;
+  
+    font-size: 0.78rem;
+  }
+  
+  
+  /* -------------------------------- */
+  /* CONTEST STATS */
+  /* -------------------------------- */
+  
+  .mlb-contest-info {
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 22px;
+  }
+  
+  .mlb-contest-stat {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 4px;
+  }
+  
+  .contest-stat-label {
+    color: #777;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    text-transform: uppercase;
+  
+    letter-spacing: 0.08em;
+  }
+  
+  .contest-stat-value {
+    color: white;
+  
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  
+  .pot-highlight {
+    color: #ff2d82;
+  }
+  
+  .mlb-header-divider {
+    width: 1px;
+    height: 36px;
+  
+    background: #333;
+  }
+  
+  
+  /* -------------------------------- */
+  /* GAME LIST */
+  /* -------------------------------- */
+  
+  .mlb-games-list {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 8px;
+  }
+  
+  .mlb-game-row {
+    display: grid;
+  
+    grid-template-columns: 120px 1fr 140px;
+  
+    align-items: center;
+  
+    min-height: 78px;
+  
+    padding: 12px 18px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  }
+  
+  .mlb-game-row:hover {
+    border-color: #3a3a3a;
+  }
+  
+  
+  /* -------------------------------- */
+  /* GAME INFO */
+  /* -------------------------------- */
+  
+  .mlb-game-info {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 5px;
+  }
+  
+  .league-label {
+    color: #ff2d82;
+  
+    font-size: 0.67rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.1em;
+  }
+  
+  .mlb-game-time {
+    color: #777;
+  
+    font-size: 0.75rem;
+  }
+  
+  
+  /* -------------------------------- */
+  /* TEAM BUTTONS */
+  /* -------------------------------- */
+  
+  .mlb-game-picks {
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 12px;
+  }
+  
+  .mlb-pick-button {
+    flex: 1;
+  
+    min-height: 48px;
+  
+    padding: 10px 15px;
+  
+    background: #181818;
+  
+    border: 1px solid #343434;
+  
+    border-radius: 10px;
+  
+    color: white;
+  
+    cursor: pointer;
+  }
+  
+  .mlb-pick-button:hover:not(:disabled) {
+    border-color: #ff2d82;
+  }
+  
+  .mlb-pick-button.selected {
+    background: #ff2d82;
+  
+    border-color: #ff2d82;
+  
+    color: white;
+  }
+  
+  .mlb-pick-button:disabled {
+    opacity: 0.4;
+  
+    cursor: not-allowed;
+  }
+  
+  .mlb-team-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .mlb-vs {
+    color: #555;
+  
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  
+  
+  /* -------------------------------- */
+  /* PICK STATUS */
+  /* -------------------------------- */
+  
+  .mlb-selection-status {
+    text-align: right;
+  
+    color: #666;
+  
+    font-size: 0.75rem;
+  }
+  
+  .mlb-selection-status span {
+    display: block;
+  
+    margin-top: 3px;
+  
+    color: #ff2d82;
+  
+    font-weight: 700;
+  }
+  
+  
+  /* -------------------------------- */
+  /* EMPTY / LOADING */
+  /* -------------------------------- */
+  
+  .mlb-loading,
+  .mlb-no-games {
+    padding: 25px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  
+    color: #777;
+  }
+  
+  
+  /* -------------------------------- */
+  /* RESPONSIVE */
+  /* -------------------------------- */
+  
+  @media (max-width: 950px) {
+    .mlb-main {
+      margin-left: 0;
+  
+      padding: 20px;
+    }
+  
+    .mlb-page-header {
+      align-items: flex-start;
+  
+      flex-direction: column;
+    }
+  
+    .mlb-contest-info {
+      width: 100%;
+  
+      justify-content: space-between;
+    }
+  
+    .mlb-game-row {
+      grid-template-columns: 90px 1fr;
+    }
+  
+    .mlb-selection-status {
+      grid-column: 2;
+  
+      margin-top: 8px;
+  
+      text-align: left;
+    }
+  }
+  
+  @media (max-width: 650px) {
+    .mlb-game-row {
+      display: flex;
+  
+      flex-direction: column;
+      align-items: stretch;
+  
+      gap: 12px;
+    }
+  
+    .mlb-game-picks {
+      width: 100%;
+    }
+  
+    .mlb-selection-status {
+      text-align: left;
+    }
+  
+    .mlb-contest-info {
+      flex-wrap: wrap;
+    }
+  
+    .mlb-header-divider {
+      display: none;
+    }
+  }
+  .mlb-contest-close-time {
+    margin: 10px 0 0;
+  
+    color: #ff2d82;
+  
+    font-size: 0.85rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.04em;
+  }
+  
+  .mlb-contest-close-time.closed {
+    color: #777;
+  }
+
+  .mlb-confirm-section {
+    margin-top: 18px;
+  
+    padding: 18px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  
+    display: flex;
+  
+    justify-content: flex-end;
+    align-items: center;
+  
+    gap: 18px;
+  }
+  
+  .mlb-pick-progress {
+    color: #777;
+  
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .mlb-confirm-button {
+    min-width: 170px;
+  
+    padding: 13px 22px;
+  
+    background: #ff2d82;
+  
+    border: 1px solid #ff2d82;
+  
+    border-radius: 10px;
+  
+    color: white;
+  
+    font-size: 0.9rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+  }
+  
+  .mlb-confirm-button:hover:not(:disabled) {
+    background: #e52472;
+  }
+  
+  .mlb-confirm-button:disabled {
+    background: #252525;
+  
+    border-color: #333;
+  
+    color: #666;
+  
+    cursor: not-allowed;
+  }

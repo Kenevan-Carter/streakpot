@@ -1,17 +1,27 @@
+/* ========================================
+   PAGE
+======================================== */
+
 .create-contest-page {
   min-height: 100vh;
+
   padding: 20px;
 
   background: #090909;
+
   color: #f5f5f5;
 }
 
-/* ---------------- SPORT TABS ---------------- */
+
+/* ========================================
+   SPORT TABS
+======================================== */
 
 .sport-tabs {
   display: grid;
 
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns:
+    repeat(5, 1fr);
 
   gap: 12px;
 
@@ -35,6 +45,11 @@
   font-weight: 600;
 
   cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .sport-tab:hover {
@@ -51,7 +66,10 @@
   color: white;
 }
 
-/* ---------------- GAME PANEL ---------------- */
+
+/* ========================================
+   GAME PANEL
+======================================== */
 
 .contest-game-panel {
   margin-top: 12px;
@@ -69,10 +87,13 @@
   padding: 18px;
 }
 
-/* custom scrollbar */
+
+/* ========================================
+   SCROLLBAR
+======================================== */
 
 .game-scroll-area::-webkit-scrollbar {
-  width: 9px;
+  width: 8px;
 }
 
 .game-scroll-area::-webkit-scrollbar-track {
@@ -80,14 +101,17 @@
 }
 
 .game-scroll-area::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #333333;
 }
 
 .game-scroll-area::-webkit-scrollbar-thumb:hover {
   background: #ff2d82;
 }
 
-/* ---------------- DATE SECTION ---------------- */
+
+/* ========================================
+   DATE GROUP
+======================================== */
 
 .date-group {
   margin-bottom: 28px;
@@ -102,8 +126,11 @@
 
   background: #171717;
 
-  border-left: 3px solid #ff2d82;
-  border-bottom: 1px solid #292929;
+  border-left:
+    3px solid #ff2d82;
+
+  border-bottom:
+    1px solid #292929;
 
   color: white;
 
@@ -111,11 +138,14 @@
   font-weight: 700;
 }
 
-/* ---------------- GAME ROWS ---------------- */
-
 .date-games {
   background: #0e0e0e;
 }
+
+
+/* ========================================
+   GAME ROW
+======================================== */
 
 .game-row {
   display: flex;
@@ -128,7 +158,8 @@
 
   padding: 14px 16px;
 
-  border-bottom: 1px solid #242424;
+  border-bottom:
+    1px solid #242424;
 
   cursor: pointer;
 
@@ -146,14 +177,26 @@
 }
 
 .game-row.selected {
-  background: rgba(255, 45, 130, 0.08);
+  background:
+    rgba(
+      255,
+      45,
+      130,
+      0.08
+    );
 
-  border-left: 3px solid #ff2d82;
+  border-left:
+    3px solid #ff2d82;
 }
 
-/* ---------------- CHECKBOX ---------------- */
 
-.game-row input[type="checkbox"] {
+/* ========================================
+   CHECKBOX
+======================================== */
+
+.game-row input[
+  type="checkbox"
+] {
   appearance: none;
 
   width: 21px;
@@ -168,13 +211,17 @@
   cursor: pointer;
 }
 
-.game-row input[type="checkbox"]:checked {
+.game-row input[
+  type="checkbox"
+]:checked {
   background: #ff2d82;
 
   border-color: #ff2d82;
 }
 
-.game-row input[type="checkbox"]:checked::after {
+.game-row input[
+  type="checkbox"
+]:checked::after {
   content: "✓";
 
   display: flex;
@@ -182,15 +229,19 @@
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   height: 100%;
 
   color: white;
 
   font-size: 0.8rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-/* ---------------- GAME INFO ---------------- */
+
+/* ========================================
+   GAME INFORMATION
+======================================== */
 
 .game-info {
   display: flex;
@@ -224,14 +275,43 @@
   font-size: 0.85rem;
 }
 
-/* ---------------- FOOTER ---------------- */
+
+/* ========================================
+   LOADING / ERROR
+======================================== */
+
+.game-loading,
+.no-games {
+  margin: 0;
+
+  padding: 30px;
+
+  color: #777;
+
+  text-align: center;
+}
+
+.game-error {
+  margin: 0;
+
+  padding: 30px;
+
+  color: #ff2d82;
+
+  text-align: center;
+}
+
+
+/* ========================================
+   CONTEST FOOTER
+======================================== */
 
 .contest-footer {
   display: flex;
 
-  align-items: center;
+  align-items: flex-end;
 
-  gap: 45px;
+  gap: 30px;
 
   margin-top: 12px;
 
@@ -241,6 +321,11 @@
 
   border: 1px solid #292929;
 }
+
+
+/* ========================================
+   FOOTER STAT
+======================================== */
 
 .footer-stat,
 .footer-entry {
@@ -258,6 +343,8 @@
   font-weight: 700;
 
   letter-spacing: 0.12em;
+
+  white-space: nowrap;
 }
 
 .footer-value {
@@ -267,10 +354,73 @@
   font-weight: 700;
 }
 
-.footer-entry select {
-  min-width: 110px;
 
-  padding: 10px 12px;
+/* ========================================
+   ENTRY FEE
+======================================== */
+
+.entry-fee-input-wrapper {
+  display: flex;
+
+  align-items: center;
+
+  height: 40px;
+
+  padding: 0 11px;
+
+  background: #181818;
+
+  border: 1px solid #333;
+
+  gap: 4px;
+}
+
+.entry-fee-input-wrapper:focus-within {
+  border-color: #ff2d82;
+}
+
+.entry-fee-input-wrapper span {
+  color: #777;
+
+  font-size: 0.95rem;
+}
+
+.entry-fee-input-wrapper input {
+  width: 70px;
+
+  background: transparent;
+
+  border: none;
+
+  outline: none;
+
+  color: white;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+
+/* Remove number arrows */
+
+.entry-fee-input-wrapper
+input::-webkit-outer-spin-button,
+.entry-fee-input-wrapper
+input::-webkit-inner-spin-button {
+  margin: 0;
+
+  -webkit-appearance: none;
+}
+
+
+/* ========================================
+   DROPDOWNS
+======================================== */
+
+.footer-entry select {
+  height: 40px;
+
+  padding: 0 11px;
 
   background: #181818;
 
@@ -278,9 +428,13 @@
 
   color: white;
 
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 
   cursor: pointer;
+}
+
+.footer-entry select:hover {
+  border-color: #555;
 }
 
 .footer-entry select:focus {
@@ -289,14 +443,54 @@
   border-color: #ff2d82;
 }
 
-.create-contest-button {
+
+/* ========================================
+   TIME SELECTORS
+======================================== */
+
+.contest-time-selectors {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.contest-time-selectors select {
+  min-width: 60px;
+}
+
+.time-colon {
+  color: #777;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+
+/* ========================================
+   CREATE BUTTON
+======================================== */
+
+.contest-create-section {
   margin-left: auto;
 
-  padding: 14px 28px;
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 8px;
+}
+
+.create-contest-button {
+  min-height: 42px;
+
+  padding: 0 28px;
 
   background: #ff2d82;
 
-  border: none;
+  border: 1px solid #ff2d82;
 
   color: white;
 
@@ -304,17 +498,69 @@
   font-weight: 700;
 
   cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
 }
 
-.create-contest-button:hover {
+.create-contest-button:hover:not(
+  :disabled
+) {
   background: #e52472;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+.create-contest-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.contest-message {
+  max-width: 300px;
+
+  margin: 0;
+
+  color: #aaa;
+
+  font-size: 0.78rem;
+
+  text-align: right;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1050px) {
+  .contest-footer {
+    flex-wrap: wrap;
+  }
+
+  .contest-create-section {
+    width: 100%;
+
+    margin-left: 0;
+
+    align-items: stretch;
+  }
+
+  .create-contest-button {
+    width: 100%;
+  }
+
+  .contest-message {
+    max-width: none;
+
+    text-align: left;
+  }
+}
 
 @media (max-width: 850px) {
   .sport-tabs {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+      repeat(3, 1fr);
   }
 
   .game-info {
@@ -322,39 +568,60 @@
 
     flex-direction: column;
 
-    gap: 8px;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 550px) {
+  .create-contest-page {
+    padding: 12px;
+  }
+
+  .sport-tabs {
+    grid-template-columns:
+      repeat(2, 1fr);
   }
 
   .contest-footer {
-    flex-wrap: wrap;
+    flex-direction: column;
+
+    align-items: stretch;
   }
 
-  .create-contest-button {
+  .footer-entry select {
     width: 100%;
+  }
 
-    margin-left: 0;
+  .contest-time-selectors {
+    width: 100%;
+  }
+
+  .contest-time-selectors select {
+    flex: 1;
   }
 }
-.contest-create-section {
-  margin-left: auto;
+.footer-entry input[type="date"] {
+  height: 40px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  padding: 0 11px;
 
-  gap: 8px;
+  background: #181818;
+
+  border: 1px solid #333;
+
+  color: white;
+
+  font-size: 0.9rem;
+
+  cursor: pointer;
 }
 
-.create-contest-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.footer-entry input[type="date"]:hover {
+  border-color: #555;
 }
 
-.contest-message {
-  margin: 0;
+.footer-entry input[type="date"]:focus {
+  outline: none;
 
-  color: #aaa;
-
-  font-size: 0.8rem;
-  text-align: right;
+  border-color: #ff2d82;
 }

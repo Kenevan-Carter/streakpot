@@ -1,8 +1,22 @@
 import "./Admin.css";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/supabase";
 
+const checkUser = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log("Logged in user ID:", user?.id);
+};
+console.log("ADMIN FILE LOADED");
 function Admin() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <div className="admin-page">
@@ -15,23 +29,15 @@ function Admin() {
           className="admin-card"
           onClick={() => navigate("/admin/createcontest")}
         >
-          <span className="admin-card-label">
-            CONTESTS
-          </span>
-
+          <span className="admin-card-label">CONTESTS</span>
           <h2>Manage Contests</h2>
-          
-
         </button>
 
         <button
           className="admin-card"
           onClick={() => navigate("/admin/games")}
         >
-          <span className="admin-card-label">
-            GAMES
-          </span>
-
+          <span className="admin-card-label">GAMES</span>
           <h2>Manage Games</h2>
 
           <p>
@@ -43,10 +49,7 @@ function Admin() {
           className="admin-card"
           onClick={() => navigate("/admin/usertable")}
         >
-          <span className="admin-card-label">
-            USERS
-          </span>
-
+          <span className="admin-card-label">USERS</span>
           <h2>View Users</h2>
 
           <p>
@@ -58,10 +61,7 @@ function Admin() {
           className="admin-card"
           onClick={() => navigate("/admin/results")}
         >
-          <span className="admin-card-label">
-            RESULTS
-          </span>
-
+          <span className="admin-card-label">RESULTS</span>
           <h2>Game Results</h2>
 
           <p>

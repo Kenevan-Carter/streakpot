@@ -10,6 +10,7 @@ import CreateAccount from "./components/createAccount/CreateAccount";
 import Home from "./pages/home/Home";
 import NBA from "./pages/sports/nba/NBA";
 import NFL from "./pages/sports/nfl/NFL";
+import MLB from "./pages/sports/mlb/MLB";
 import Admin from "./pages/admin/Admin";
 import AdminRoute from "./components/adminroute/AdminRoute";
 import UserTable from "./pages/admin/usertable/UserTable";
@@ -60,6 +61,14 @@ function App() {
           element={
             <ProtectedRoute>
               <NFL />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/sports/mlb"
+          element={
+            <ProtectedRoute>
+              <MLB />
             </ProtectedRoute>
           }
         />

@@ -21,6 +21,9 @@ function SportSelection() {
     else if (sportName === "NBA") {
         navigate("/sports/nba");
         }
+    else if (sportName =="MLB"){
+      navigate("/sports/mlb");
+    }
   };
 
   return (
