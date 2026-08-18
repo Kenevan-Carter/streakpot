@@ -1,0 +1,330 @@
+.mybets-page {
+    min-height: 100vh;
+    background: #090909;
+    color: white;
+  }
+  
+  .mybets-main {
+    margin-left: 240px;
+  
+    min-height: 100vh;
+  
+    padding: 36px 40px;
+  }
+  
+  
+  /* HEADER */
+  
+  .mybets-header {
+    display: flex;
+  
+    justify-content: space-between;
+    align-items: flex-end;
+  
+    gap: 30px;
+  
+    margin-bottom: 32px;
+  }
+  
+  .mybets-small-title {
+    margin: 0 0 7px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.7rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.14em;
+  }
+  
+  .mybets-header h1 {
+    margin: 0;
+  
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .mybets-subtitle {
+    margin: 8px 0 0;
+  
+    color: #777;
+  
+    font-size: 0.9rem;
+  }
+  
+  
+  /* ACTIVE / PAST BUTTONS */
+  
+  .mybets-view-tabs {
+    display: flex;
+  
+    gap: 8px;
+  
+    padding: 5px;
+  
+    background: #111111;
+  
+    border: 1px solid #292929;
+  }
+  
+  .mybets-view-button {
+    padding: 10px 18px;
+  
+    background: transparent;
+  
+    border: 1px solid transparent;
+  
+    border-radius: 8px;
+  
+    color: #777;
+  
+    font-size: 0.82rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+  }
+  
+  .mybets-view-button:hover {
+    color: white;
+  }
+  
+  .mybets-view-button.active {
+    background: #ff2d82;
+  
+    color: white;
+  }
+  
+  
+  /* CONTENT */
+  
+  .mybets-content {
+    background: #111111;
+  
+    border: 1px solid #292929;
+  
+    padding: 24px;
+  }
+  
+  .mybets-section-heading {
+    display: flex;
+  
+    justify-content: space-between;
+    align-items: center;
+  
+    margin-bottom: 20px;
+  }
+  
+  .mybets-section-label {
+    margin: 0 0 5px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.12em;
+  }
+  
+  .mybets-section-heading h2 {
+    margin: 0;
+  
+    font-size: 1.35rem;
+  }
+  
+  
+  /* BET CARD */
+  
+  .bet-card {
+    padding: 22px;
+  
+    background: #181818;
+  
+    border: 1px solid #303030;
+  
+    margin-bottom: 14px;
+  }
+  
+  .bet-card:last-child {
+    margin-bottom: 0;
+  }
+  
+  .bet-card-top {
+    display: flex;
+  
+    justify-content: space-between;
+    align-items: flex-start;
+  
+    margin-bottom: 22px;
+  }
+  
+  .bet-sport {
+    color: #ff2d82;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.12em;
+  }
+  
+  .bet-card h3 {
+    margin: 5px 0 0;
+  
+    font-size: 1.15rem;
+  }
+  
+  
+  /* STATUS */
+  
+  .bet-status {
+    padding: 6px 10px;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    letter-spacing: 0.08em;
+  }
+  
+  .bet-status.active {
+    background: rgba(
+      255,
+      45,
+      130,
+      0.12
+    );
+  
+    color: #ff2d82;
+  
+    border: 1px solid #ff2d82;
+  }
+  
+  .bet-status.finished {
+    background: #222;
+  
+    color: #777;
+  
+    border: 1px solid #444;
+  }
+  
+  
+  /* STATS */
+  
+  .bet-stats {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(3, 1fr);
+  
+    gap: 12px;
+  
+    padding: 18px 0;
+  
+    border-top: 1px solid #292929;
+    border-bottom: 1px solid #292929;
+  }
+  
+  .bet-stat {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 5px;
+  }
+  
+  .bet-stat span {
+    color: #666;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+  
+    text-transform: uppercase;
+  
+    letter-spacing: 0.08em;
+  }
+  
+  .bet-stat strong {
+    font-size: 1rem;
+  }
+  
+  
+  /* CARD FOOTER */
+  
+  .bet-card-bottom {
+    display: flex;
+  
+    justify-content: space-between;
+    align-items: center;
+  
+    padding-top: 18px;
+  }
+  
+  .bet-card-bottom span {
+    color: #666;
+  
+    font-size: 0.78rem;
+  }
+  
+  .bet-card-bottom button {
+    padding: 9px 17px;
+  
+    background: transparent;
+  
+    border: 1px solid #ff2d82;
+  
+    border-radius: 8px;
+  
+    color: #ff2d82;
+  
+    font-size: 0.8rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+  }
+  
+  .bet-card-bottom button:hover {
+    background: #ff2d82;
+  
+    color: white;
+  }
+  
+  
+  /* RESPONSIVE */
+  
+  @media (max-width: 900px) {
+    .mybets-main {
+      margin-left: 0;
+  
+      padding: 24px;
+    }
+  
+    .mybets-header {
+      flex-direction: column;
+  
+      align-items: flex-start;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .mybets-main {
+      padding: 16px;
+    }
+  
+    .mybets-view-tabs {
+      width: 100%;
+    }
+  
+    .mybets-view-button {
+      flex: 1;
+    }
+  
+    .bet-stats {
+      grid-template-columns: 1fr;
+    }
+  
+    .bet-card-bottom {
+      align-items: flex-start;
+  
+      flex-direction: column;
+  
+      gap: 14px;
+    }
+  }

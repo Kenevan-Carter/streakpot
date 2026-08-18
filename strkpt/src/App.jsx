@@ -15,6 +15,7 @@ import Admin from "./pages/admin/Admin";
 import AdminRoute from "./components/adminroute/AdminRoute";
 import UserTable from "./pages/admin/usertable/UserTable";
 import CreateTable from "./pages/admin/createcontest/CreateContest";
+import MyBets from "./pages/mybets/MyBets";
 
 import ProtectedRoute from "./components/protectedroute/ProtectedRoute";
 
@@ -43,6 +44,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mybets"
+          element={
+            <ProtectedRoute>
+              <MyBets />
             </ProtectedRoute>
           }
         />
