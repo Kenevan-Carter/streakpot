@@ -20,6 +20,7 @@ function CreateContest() {
 
   const [creatingContest, setCreatingContest] = useState(false);
   const [contestMessage, setContestMessage] = useState("");
+  const [contestTitle, setContestTitle] = useState("");
 
   const sports = ["NBA", "NFL", "MLB", "NHL", "EPL"];
 
@@ -320,10 +321,7 @@ function CreateContest() {
           .from("contests")
           .insert({
             sport: selectedSport,
-
-            title:
-              `${selectedSport} Daily Contest`,
-
+            title: contestTitle,
             entry_fee_cents:
               Number(entryFee) * 100,
 
@@ -590,6 +588,20 @@ function CreateContest() {
             {selectedGames.length}
           </span>
         </div>
+        {/* CONTEST TITLE */}
+<div className="footer-entry">
+  <label className="footer-label" htmlFor="contest-title">
+    CONTEST TITLE
+  </label>
+
+  <input
+    id="contest-title"
+    type="text"
+    placeholder={`${selectedSport} Daily Contest`}
+    value={contestTitle}
+    onChange={(event) => setContestTitle(event.target.value)}
+  />
+</div>
 
         {/* ENTRY FEE */}
 

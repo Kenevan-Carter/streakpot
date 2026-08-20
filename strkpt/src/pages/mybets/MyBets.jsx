@@ -1,227 +1,743 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { supabase } from "../../lib/supabase";
 import "./MyBets.css";
 
 function MyBets() {
   const [view, setView] = useState("active");
 
+  const [activeBets, setActiveBets] = useState([]);
+  const [pastBets, setPastBets] = useState([]);
+
+  const [selectedPastContestId, setSelectedPastContestId] =
+    useState("");
+
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [currentTime, setCurrentTime] = useState(Date.now());
+
+  // --------------------------------------------------
+  // UPDATE COUNTDOWN EVERY SECOND
+  // --------------------------------------------------
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // --------------------------------------------------
+  // LOAD BETS
+  // --------------------------------------------------
+
+  useEffect(() => {
+    const loadBets = async () => {
+      setLoading(true);
+      setErrorMessage("");
+
+      try {
+        // GET LOGGED IN USER
+
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser();
+
+        if (userError) {
+          throw userError;
+        }
+
+        if (!user) {
+          throw new Error("You must be logged in.");
+        }
+
+        // ------------------------------------------
+        // GET USER PICKS + CONTEST
+        // ------------------------------------------
+
+        const { data: picksData, error: picksError } =
+          await supabase
+            .from("picks")
+            .select(`
+              id,
+              contest_id,
+              game_id,
+              selected_team,
+              is_correct,
+
+              contest:contests (
+                id,
+                title,
+                sport,
+                entry_fee_cents,
+                opens_at,
+                closes_at
+              )
+            `)
+            .eq("user_id", user.id);
+
+        if (picksError) {
+          throw picksError;
+        }
+
+        const picks = picksData || [];
+
+        // NO PICKS AT ALL
+
+        if (picks.length === 0) {
+          setActiveBets([]);
+          setPastBets([]);
+          setLoading(false);
+          return;
+        }
+
+        // ------------------------------------------
+        // GET UNIQUE CONTEST IDS
+        // ------------------------------------------
+
+        const contestIds = [
+          ...new Set(
+            picks.map((pick) => pick.contest_id)
+          ),
+        ];
+
+        // ------------------------------------------
+        // GET EVERY GAME FROM THESE CONTESTS
+        // ------------------------------------------
+
+        const { data: gamesData, error: gamesError } =
+          await supabase
+            .from("games")
+            .select("*")
+            .in("contest_id", contestIds)
+            .order("starts_at", {
+              ascending: true,
+            });
+
+        if (gamesError) {
+          throw gamesError;
+        }
+
+        const allGames = gamesData || [];
+
+        // ------------------------------------------
+        // BUILD CONTEST OBJECTS
+        // ------------------------------------------
+
+        const grouped = {};
+
+        picks.forEach((pick) => {
+          if (!pick.contest) {
+            return;
+          }
+
+          const contestId = pick.contest.id;
+
+          if (!grouped[contestId]) {
+            grouped[contestId] = {
+              ...pick.contest,
+              picks: [],
+              games: [],
+            };
+          }
+
+          grouped[contestId].picks.push({
+            id: pick.id,
+            game_id: pick.game_id,
+            selected_team: pick.selected_team,
+            is_correct: pick.is_correct,
+          });
+        });
+
+        // ADD EVERY GAME TO ITS CONTEST
+
+        allGames.forEach((game) => {
+          if (grouped[game.contest_id]) {
+            grouped[game.contest_id].games.push(game);
+          }
+        });
+
+        const userContests = Object.values(grouped);
+
+        // ------------------------------------------
+        // ACTIVE / PAST
+        //
+        // ACTIVE UNTIL 24 HOURS AFTER CLOSE
+        // ------------------------------------------
+
+        const now = Date.now();
+
+        const active = [];
+        const past = [];
+
+        userContests.forEach((contest) => {
+          if (!contest.closes_at) {
+            active.push(contest);
+            return;
+          }
+
+          const closesAt = new Date(
+            contest.closes_at
+          ).getTime();
+
+          const activeUntil =
+            closesAt +
+            24 * 60 * 60 * 1000;
+
+          if (now < activeUntil) {
+            active.push(contest);
+          } else {
+            past.push(contest);
+          }
+        });
+
+        // ACTIVE: CLOSEST FIRST
+
+        active.sort((a, b) => {
+          return (
+            new Date(a.closes_at).getTime() -
+            new Date(b.closes_at).getTime()
+          );
+        });
+
+        // PAST: MOST RECENT FIRST
+
+        past.sort((a, b) => {
+          return (
+            new Date(b.closes_at).getTime() -
+            new Date(a.closes_at).getTime()
+          );
+        });
+
+        setActiveBets(active);
+        setPastBets(past);
+
+        if (past.length > 0) {
+          setSelectedPastContestId(
+            String(past[0].id)
+          );
+        }
+      } catch (error) {
+        console.error(
+          "My Bets loading error:",
+          error
+        );
+
+        setErrorMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBets();
+  }, []);
+
+  // --------------------------------------------------
+  // FORMAT GAME TIME
+  // --------------------------------------------------
+
+  const formatGameTime = (startsAt) => {
+    if (!startsAt) {
+      return "TBD";
+    }
+
+    return new Date(startsAt).toLocaleTimeString(
+      "en-US",
+      {
+        hour: "numeric",
+        minute: "2-digit",
+      }
+    );
+  };
+
+  // --------------------------------------------------
+  // FORMAT DATE
+  // --------------------------------------------------
+
+  const formatDate = (date) => {
+    if (!date) {
+      return "TBD";
+    }
+
+    return new Date(date).toLocaleDateString(
+      "en-US",
+      {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }
+    );
+  };
+
+  // --------------------------------------------------
+  // COUNTDOWN
+  // --------------------------------------------------
+
+  const getCountdown = (closesAt) => {
+    if (!closesAt) {
+      return "TBD";
+    }
+
+    const closeTime = new Date(
+      closesAt
+    ).getTime();
+
+    const difference =
+      closeTime - currentTime;
+
+    if (difference <= 0) {
+      return "Contest ended";
+    }
+
+    const days = Math.floor(
+      difference /
+        (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+      (difference %
+        (1000 * 60 * 60 * 24)) /
+        (1000 * 60 * 60)
+    );
+
+    const minutes = Math.floor(
+      (difference %
+        (1000 * 60 * 60)) /
+        (1000 * 60)
+    );
+
+    const seconds = Math.floor(
+      (difference %
+        (1000 * 60)) /
+        1000
+    );
+
+    if (days > 0) {
+      return `${days}d ${hours}h ${minutes}m`;
+    }
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  // --------------------------------------------------
+  // FIND PICK FOR GAME
+  // --------------------------------------------------
+
+  const getPickForGame = (
+    contest,
+    gameId
+  ) => {
+    return contest.picks.find(
+      (pick) =>
+        pick.game_id === gameId
+    );
+  };
+
+  // --------------------------------------------------
+  // PAST CONTEST
+  // --------------------------------------------------
+
+  const selectedPastContest =
+    pastBets.find(
+      (contest) =>
+        String(contest.id) ===
+        selectedPastContestId
+    );
+
+  // --------------------------------------------------
+  // CONTEST DISPLAY
+  // --------------------------------------------------
+
+  const renderContest = (
+    contest,
+    isPast = false
+  ) => {
+    return (
+      <div
+        className="mybets-contest"
+        key={contest.id}
+      >
+        {/* CONTEST HEADER */}
+
+        <div className="mybets-contest-header">
+
+          <div className="contest-title-area">
+
+            <span className="contest-sport">
+              {contest.sport}
+            </span>
+            <h2>
+              {contest.title}
+            </h2>
+            <p>
+              {formatDate(
+                contest.closes_at
+              )}
+            </p>
+
+          </div>
+
+          <div className="contest-header-stats">
+
+            <div className="contest-header-stat">
+              <span>
+                SPORT
+              </span>
+
+              <strong>
+                {contest.sport}
+              </strong>
+            </div>
+
+            <div className="contest-stat-divider" />
+
+            <div className="contest-header-stat">
+              <span>
+                ENTRY FEE
+              </span>
+
+              <strong>
+                $
+                {(
+                  contest.entry_fee_cents /
+                  100
+                ).toFixed(0)}
+              </strong>
+            </div>
+
+            <div className="contest-stat-divider" />
+
+            <div className="contest-header-stat">
+              <span>
+                CORRECT PICKS
+              </span>
+
+              <strong>
+                {contest.picks.length}
+                {" / "}
+                {contest.games.length}
+              </strong>
+            </div>
+
+            <div className="contest-stat-divider" />
+
+            <div className="contest-header-stat">
+              <span>
+                {isPast
+                  ? "STATUS"
+                  : "CONTEST CLOSES IN"}
+              </span>
+
+              <strong
+                className={
+                  isPast
+                    ? ""
+                    : "pink-value"
+                }
+              >
+                {isPast
+                  ? "FINISHED"
+                  : getCountdown(
+                      contest.closes_at
+                    )}
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* GAME LIST */}
+
+        <div className="mybets-game-list">
+
+          {contest.games.map((game) => {
+            const pick =
+              getPickForGame(
+                contest,
+                game.id
+              );
+
+            const selectedTeam =
+              pick?.selected_team;
+
+            return (
+              <div
+                className="mybets-game-row"
+                key={game.id}
+              >
+
+                {/* GAME TIME */}
+
+                <div className="mybets-game-meta">
+
+                  <span>
+                    {game.league ||
+                      contest.sport}
+                  </span>
+
+                  <p>
+                    {formatGameTime(
+                      game.starts_at
+                    )}
+                  </p>
+
+                </div>
+
+                {/* TEAMS */}
+
+                <div className="mybets-game-teams">
+
+                  <button
+                    className={`locked-team-button ${
+                      selectedTeam ===
+                      game.away_team
+                        ? "picked"
+                        : ""
+                    }`}
+                    disabled
+                  >
+                    {game.away_team}
+                  </button>
+
+                  <span className="mybets-vs">
+                    VS
+                  </span>
+
+                  <button
+                    className={`locked-team-button ${
+                      selectedTeam ===
+                      game.home_team
+                        ? "picked"
+                        : ""
+                    }`}
+                    disabled
+                  >
+                    {game.home_team}
+                  </button>
+
+                </div>
+
+                {/* LOCK */}
+
+                <div className="mybets-locked">
+
+                  <span className="lock-icon">
+                    ◉
+                  </span>
+
+                  {selectedTeam
+                    ? "Locked Pick"
+                    : "No Pick"}
+
+                </div>
+
+              </div>
+            );
+          })}
+
+        </div>
+
+      </div>
+    );
+  };
+
+  // --------------------------------------------------
+  // PAGE
+  // --------------------------------------------------
+
   return (
     <div className="mybets-page">
+
       <Sidebar />
 
       <main className="mybets-main">
 
-        {/* HEADER */}
-        <div className="mybets-header">
-          <div>
-            <p className="mybets-small-title">
-              YOUR BETS
-            </p>
+        {/* PAGE HEADER */}
 
-            <h1>My Bets</h1>
+        <div className="mybets-page-header">
 
-            <p className="mybets-subtitle">
-              Track your contests and picks.
-            </p>
-          </div>
+          <span>
+            YOUR BETS
+          </span>
 
-          {/* ACTIVE / PAST SWITCH */}
-          <div className="mybets-view-tabs">
-            <button
-              className={`mybets-view-button ${
-                view === "active"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                setView("active")
-              }
-            >
-              Active Bets
-            </button>
+          <h1>
+            My Bets
+          </h1>
 
-            <button
-              className={`mybets-view-button ${
-                view === "past"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                setView("past")
-              }
-            >
-              Past Bets
-            </button>
-          </div>
+          <p>
+            Track your active contests and
+            previous picks.
+          </p>
+
         </div>
 
-        {/* ACTIVE BETS */}
-        {view === "active" && (
-          <div className="mybets-content">
+        {/* TABS */}
 
-            <div className="mybets-section-heading">
-              <div>
-                <p className="mybets-section-label">
-                  ACTIVE
-                </p>
+        <div className="mybets-tabs">
 
-                <h2>Active Bets</h2>
-              </div>
-            </div>
+          <button
+            className={
+              view === "active"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setView("active")
+            }
+          >
+            ACTIVE BETS
+          </button>
 
-            {/* Eventually map real active bets here */}
+          <button
+            className={
+              view === "past"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setView("past")
+            }
+          >
+            PAST BETS
+          </button>
 
-            <div className="bet-card">
-              <div className="bet-card-top">
+        </div>
 
-                <div>
-                  <span className="bet-sport">
-                    MLB
-                  </span>
+        {/* LOADING */}
 
-                  <h3>
-                    MLB Daily Contest
-                  </h3>
-                </div>
-
-                <span className="bet-status active">
-                  ACTIVE
-                </span>
-
-              </div>
-
-              <div className="bet-stats">
-
-                <div className="bet-stat">
-                  <span>
-                    Entry
-                  </span>
-
-                  <strong>
-                    $3
-                  </strong>
-                </div>
-
-                <div className="bet-stat">
-                  <span>
-                    Picks
-                  </span>
-
-                  <strong>
-                    6 / 6
-                  </strong>
-                </div>
-
-                <div className="bet-stat">
-                  <span>
-                    Contest
-                  </span>
-
-                  <strong>
-                    MLB
-                  </strong>
-                </div>
-
-              </div>
-
-              <div className="bet-card-bottom">
-                <span>
-                  Picks confirmed
-                </span>
-
-                <button>
-                  View Picks
-                </button>
-              </div>
-
-            </div>
-
+        {loading && (
+          <div className="mybets-empty">
+            Loading your bets...
           </div>
         )}
 
-        {/* PAST BETS */}
-        {view === "past" && (
-          <div className="mybets-content">
+        {/* ERROR */}
 
-            <div className="mybets-section-heading">
-              <div>
-                <p className="mybets-section-label">
-                  HISTORY
-                </p>
-
-                <h2>Past Bets</h2>
-              </div>
+        {!loading &&
+          errorMessage && (
+            <div className="mybets-empty error">
+              {errorMessage}
             </div>
+          )}
 
-            {/* Eventually map completed bets here */}
+        {/* ACTIVE */}
 
-            <div className="bet-card">
-              <div className="bet-card-top">
+        {!loading &&
+          !errorMessage &&
+          view === "active" && (
+            <div className="mybets-contests">
 
-                <div>
-                  <span className="bet-sport">
-                    MLB
-                  </span>
+              {activeBets.length === 0 ? (
+                <div className="mybets-empty">
 
-                  <h3>
-                    MLB Daily Contest
-                  </h3>
+                  <div className="empty-icon">
+                    ◉
+                  </div>
+
+                  <h2>
+                    No current active bets
+                  </h2>
+
+                  <p>
+                    Once you confirm your picks,
+                    your active contests will
+                    appear here.
+                  </p>
+
                 </div>
-
-                <span className="bet-status finished">
-                  FINISHED
-                </span>
-
-              </div>
-
-              <div className="bet-stats">
-
-                <div className="bet-stat">
-                  <span>
-                    Entry
-                  </span>
-
-                  <strong>
-                    $3
-                  </strong>
-                </div>
-
-                <div className="bet-stat">
-                  <span>
-                    Correct
-                  </span>
-
-                  <strong>
-                    5 / 6
-                  </strong>
-                </div>
-
-                <div className="bet-stat">
-                  <span>
-                    Winnings
-                  </span>
-
-                  <strong>
-                    $0
-                  </strong>
-                </div>
-
-              </div>
-
-              <div className="bet-card-bottom">
-                <span>
-                  Contest completed
-                </span>
-
-                <button>
-                  View Results
-                </button>
-              </div>
+              ) : (
+                activeBets.map(
+                  (contest) =>
+                    renderContest(
+                      contest
+                    )
+                )
+              )}
 
             </div>
+          )}
 
-          </div>
-        )}
+        {/* PAST */}
+
+        {!loading &&
+          !errorMessage &&
+          view === "past" && (
+            <div className="mybets-past">
+
+              {pastBets.length === 0 ? (
+                <div className="mybets-empty">
+
+                  <h2>
+                    No past bets
+                  </h2>
+
+                  <p>
+                    Completed contests will
+                    appear here.
+                  </p>
+
+                </div>
+              ) : (
+                <>
+                  {/* DROPDOWN */}
+
+                  <div className="past-bet-selector">
+
+                    <label>
+                      PAST CONTEST
+                    </label>
+
+                    <select
+                      value={
+                        selectedPastContestId
+                      }
+                      onChange={(event) =>
+                        setSelectedPastContestId(
+                          event.target.value
+                        )
+                      }
+                    >
+
+                      {pastBets.map(
+                        (contest) => (
+                          <option
+                            key={
+                              contest.id
+                            }
+                            value={
+                              contest.id
+                            }
+                          >
+                            {
+                              contest.title
+                            }
+                            {" — "}
+                            {formatDate(
+                              contest.closes_at
+                            )}
+                          </option>
+                        )
+                      )}
+
+                    </select>
+
+                  </div>
+
+                  {selectedPastContest &&
+                    renderContest(
+                      selectedPastContest,
+                      true
+                    )}
+
+                </>
+              )}
+
+            </div>
+          )}
 
       </main>
     </div>
