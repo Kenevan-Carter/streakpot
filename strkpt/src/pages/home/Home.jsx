@@ -9,6 +9,7 @@ import Stats from "../../components/stats/Stats";
 import FeaturedContests from "../../components/featuredcontests/FeaturedContests";
 
 
+
 function Home() {
   const user = {
     name: "Kenevan",
