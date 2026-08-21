@@ -30,15 +30,11 @@ function FeaturedContests() {
       <div className="featured-contests-header">
         <div>
           <p className="featured-contests-label">
-            FEATURED CONTESTS
+            FEATURED butt
           </p>
 
-          <h2>Featured Contests</h2>
+          <h2>View This Weeks Featured Contests</h2>
         </div>
-
-        <span className="featured-contests-subtext">
-          Jump into one of today's featured contests
-        </span>
       </div>
 
       <div className="featured-contests-grid">
