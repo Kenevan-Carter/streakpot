@@ -72,14 +72,10 @@ function CreateAccount() {
 
   return (
     <div className="signup-page">
-      <h1>Streak Bet</h1>
+      <h1>StreakPicks</h1>
 
       <main className="signup-content">
-        <h2>Sign Up</h2>
-
-        <p className="signup-subtitle">
-          Welcome!
-        </p>
+        <h2>Sign Up and Start Picking!</h2>
 
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="signup-field">

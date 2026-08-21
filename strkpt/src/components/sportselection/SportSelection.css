@@ -88,28 +88,10 @@
   font-weight: 700;
 }
 
-/* Tablet */
-
-@media (max-width: 1050px) {
-  .sports-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.sport-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
 }
 
-/* Mobile */
-
-@media (max-width: 650px) {
-  .sport-selection {
-    padding: 20px;
-  }
-
-  .sport-selection-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .sports-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}

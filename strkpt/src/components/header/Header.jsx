@@ -39,12 +39,13 @@ function Header({ coins, streak }) {
       <div className="header-welcome">
         <p className="header-label">WELCOME BACK</p>
 
-        <h1>
-          Hey, {username || "User"}
-        </h1>
-
+        {username && (
+          <h1>
+            {username}
+          </h1>
+        )}
         <p className="header-subtitle">
-          Pick a sport and keep your streak alive.
+          Make Your Predictions
         </p>
       </div>
 

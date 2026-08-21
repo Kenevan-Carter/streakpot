@@ -1,0 +1,199 @@
+.featured-contests {
+    margin-top: 32px;
+    padding: 38px;
+  
+    background: #111111;
+    border: 1px solid #303030;
+  }
+  
+  .featured-contests-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  
+    margin-bottom: 32px;
+  }
+  
+  .featured-contests-label {
+    margin: 0 0 14px;
+  
+    color: #ff2d87;
+  
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  
+  .featured-contests-header h2 {
+    margin: 0;
+  
+    color: #ffffff;
+  
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  
+  .featured-contests-subtext {
+    color: #727272;
+    font-size: 0.95rem;
+  }
+  
+  
+  /* CONTEST GRID */
+  
+  .featured-contests-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  
+  /* CONTEST CARD */
+  
+  .featured-contest-card {
+    padding: 24px;
+  
+    background: #151515;
+  
+    border: 1px solid #303030;
+    border-radius: 14px;
+  
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      background 0.2s ease;
+  }
+  
+  .featured-contest-card:hover {
+    border-color: #ff2d87;
+    background: #181818;
+    transform: translateY(-2px);
+  }
+  
+  
+  /* TOP ROW */
+  
+  .featured-contest-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    margin-bottom: 22px;
+  }
+  
+  .featured-contest-sport {
+    color: #ff2d87;
+  
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+  
+  .featured-badge {
+    padding: 5px 9px;
+  
+    color: #999999;
+    background: #202020;
+  
+    border: 1px solid #343434;
+    border-radius: 5px;
+  
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  
+  
+  /* TITLE */
+  
+  .featured-contest-card h3 {
+    margin: 0 0 26px;
+  
+    color: #f5f5f5;
+  
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  
+  /* STATS */
+  
+  .featured-contest-info {
+    display: flex;
+    gap: 42px;
+  
+    padding: 18px 0;
+    margin-bottom: 20px;
+  
+    border-top: 1px solid #292929;
+    border-bottom: 1px solid #292929;
+  }
+  
+  .featured-contest-info > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .contest-info-label {
+    color: #696969;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  
+  .contest-info-value {
+    color: #ffffff;
+  
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  
+  
+  /* BUTTON */
+  
+  .view-contest-button {
+    width: 100%;
+  
+    padding: 11px 14px;
+  
+    background: transparent;
+    color: #d8d8d8;
+  
+    border: 1px solid #343434;
+    border-radius: 8px;
+  
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+  
+  .view-contest-button:hover {
+    background: #ff2d87;
+    border-color: #ff2d87;
+    color: #ffffff;
+  }
+  
+  
+  /* RESPONSIVE */
+  
+  @media (max-width: 1000px) {
+    .featured-contests-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .featured-contests-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }

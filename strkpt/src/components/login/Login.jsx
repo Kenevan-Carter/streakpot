@@ -51,7 +51,7 @@ function Login() {
         <h2>Log In</h2>
 
         <p className="login-subtitle">
-          Continue Your StreakPot Experience
+          Continue Your Experience
         </p>
 
         <form className="login-form" onSubmit={handleSubmit}>
