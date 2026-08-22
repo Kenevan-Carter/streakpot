@@ -1,6 +1,8 @@
-import { supabase } from "../../lib/supabase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { supabase } from "../../lib/supabase";
+
 import "./CreateAccount.css";
 
 function CreateAccount() {
@@ -13,13 +15,22 @@ function CreateAccount() {
 
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [creatingAccount, setCreatingAccount] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Clear old message
     setMessage("");
     setMessageType("");
+
+    const cleanedEmail = email.trim();
+    const cleanedUsername = username.trim();
+
+    if (!cleanedUsername) {
+      setMessage("Please enter a username.");
+      setMessageType("error");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
@@ -27,47 +38,58 @@ function CreateAccount() {
       return;
     }
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    setCreatingAccount(true);
 
-    if (error) {
-      setMessage(error.message);
-      setMessageType("error");
-      return;
-    }
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: cleanedEmail,
+        password,
 
-    const user = data.user;
-
-    if (!user) {
-      setMessage("Account could not be created. Please try again.");
-      setMessageType("error");
-      return;
-    }
-
-    const { error: profileError } = await supabase
-      .from("profiles")
-      .insert([
-        {
-          id: user.id,
-          username: username,
+        options: {
+          data: {
+            username: cleanedUsername,
+          },
         },
-      ]);
+      });
 
-    if (profileError) {
-      setMessage(profileError.message);
+      if (error) {
+        console.error("Signup error:", error);
+        setMessage(error.message);
+        setMessageType("error");
+        return;
+      }
+
+      if (!data.user) {
+        console.error("No user returned from signup:", data);
+
+        setMessage(
+          "Account could not be created. Please try again."
+        );
+        setMessageType("error");
+        return;
+      }
+
+      console.log("Account created:", data.user);
+      console.log("Session:", data.session);
+
+      setMessage("Account created successfully!");
+      setMessageType("success");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1200);
+
+    } catch (error) {
+      console.error("Unexpected signup error:", error);
+
+      setMessage(
+        "Something went wrong while creating your account."
+      );
       setMessageType("error");
-      return;
+
+    } finally {
+      setCreatingAccount(false);
     }
-
-    setMessage("Account created successfully!");
-    setMessageType("success");
-
-    // Optional: wait a little so the user can see the success message
-    setTimeout(() => {
-      navigate("/");
-    }, 1200);
   };
 
   return (
@@ -77,39 +99,54 @@ function CreateAccount() {
       <main className="signup-content">
         <h2>Sign Up and Start Picking!</h2>
 
-        <form className="signup-form" onSubmit={handleSubmit}>
+        <form
+          className="signup-form"
+          onSubmit={handleSubmit}
+        >
           <div className="signup-field">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">
+              Username
+            </label>
 
             <input
               id="username"
               type="text"
               value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              onChange={(event) =>
+                setUsername(event.target.value)
+              }
               required
             />
           </div>
 
           <div className="signup-field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">
+              Email
+            </label>
 
             <input
               id="email"
               type="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) =>
+                setEmail(event.target.value)
+              }
               required
             />
           </div>
 
           <div className="signup-field">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              Password
+            </label>
 
             <input
               id="password"
               type="password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) =>
+                setPassword(event.target.value)
+              }
               required
             />
           </div>
@@ -123,25 +160,36 @@ function CreateAccount() {
               id="confirmPassword"
               type="password"
               value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
+              onChange={(event) =>
+                setConfirmPassword(event.target.value)
+              }
               required
             />
           </div>
 
           {message && (
-            <div className={`account-message ${messageType}`}>
+            <div
+              className={`account-message ${messageType}`}
+            >
               {message}
             </div>
           )}
 
-          <button className="signup-button" type="submit">
-            Create Account
+          <button
+            className="signup-button"
+            type="submit"
+            disabled={creatingAccount}
+          >
+            {creatingAccount
+              ? "Creating Account..."
+              : "Create Account"}
           </button>
 
           <button
             className="return-button"
             type="button"
             onClick={() => navigate("/")}
+            disabled={creatingAccount}
           >
             Return to Login
           </button>

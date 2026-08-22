@@ -30,7 +30,7 @@ function FeaturedContests() {
       <div className="featured-contests-header">
         <div>
           <p className="featured-contests-label">
-            FEATURED butt
+            FEATURED 
           </p>
 
           <h2>View This Weeks Featured Contests</h2>

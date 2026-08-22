@@ -8,16 +8,14 @@ import Login from "./components/login/Login";
 import CreateAccount from "./components/createAccount/CreateAccount";
 
 import Home from "./pages/home/Home";
-import NBA from "./pages/sports/nba/NBA";
-import NFL from "./pages/sports/nfl/NFL";
-import MLB from "./pages/sports/mlb/MLB";
+import Sports from "./pages/sports/Sports";
 import Admin from "./pages/admin/Admin";
-import AdminRoute from "./components/adminroute/AdminRoute";
 import UserTable from "./pages/admin/usertable/UserTable";
-import CreateTable from "./pages/admin/createcontest/CreateContest";
+import CreateContest from "./pages/admin/createcontest/CreateContest";
 import MyBets from "./pages/mybets/MyBets";
 import Profile from "./pages/profile/Profile";
 
+import AdminRoute from "./components/adminroute/AdminRoute";
 import ProtectedRoute from "./components/protectedroute/ProtectedRoute";
 
 function App() {
@@ -25,7 +23,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Public routes */}
+        {/* PUBLIC ROUTES */}
 
         <Route
           path="/"
@@ -38,7 +36,7 @@ function App() {
         />
 
 
-        {/* Protected routes */}
+        {/* PROTECTED ROUTES */}
 
         <Route
           path="/home"
@@ -48,6 +46,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/mybets"
           element={
@@ -56,6 +55,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/profile"
           element={
@@ -65,63 +65,49 @@ function App() {
           }
         />
 
-        <Route
-          path="/sports/nba"
-          element={
-            <ProtectedRoute>
-              <NBA />
-            </ProtectedRoute>
-          }
-        />
+        {/* ONE ROUTE FOR ALL SPORTS */}
 
         <Route
-          path="/sports/nfl"
+          path="/sports/:sport"
           element={
             <ProtectedRoute>
-              <NFL />
+              <Sports />
             </ProtectedRoute>
           }
         />
-         <Route
-          path="/sports/mlb"
+
+
+        {/* ADMIN ROUTES */}
+
+        <Route
+          path="/admin"
           element={
-            <ProtectedRoute>
-              <MLB />
-            </ProtectedRoute>
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
           }
         />
-        
-          {/* Admin routes */}
-          <Route
-              path="/admin"
-              element={
-                <AdminRoute>
-                  <Admin />
-          </AdminRoute>
-  }
-            />
-            <Route
 
-            path="/admin/usertable"
-            element={
-              <AdminRoute>
-                <UserTable />
-
-          </AdminRoute>
+        <Route
+          path="/admin/usertable"
+          element={
+            <AdminRoute>
+              <UserTable />
+            </AdminRoute>
           }
-          />
-          <Route
+        />
 
+        <Route
           path="/admin/createcontest"
           element={
             <AdminRoute>
-              <CreateTable />
-        </AdminRoute>
-        }
-/>
+              <CreateContest />
+            </AdminRoute>
+          }
+        />
+
       </Routes>
     </BrowserRouter>
-    
   );
 }
 

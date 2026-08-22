@@ -1,0 +1,599 @@
+/* src/pages/sports/Sport.css */
+
+.sport-page {
+    min-height: 100vh;
+    background: #080808;
+    color: #ffffff;
+  }
+  
+  .sport-main {
+    margin-left: 240px;
+    padding: 42px 50px;
+  }
+  
+  
+  /* =========================================
+     CONTEST SELECTOR
+  ========================================= */
+  
+  .sport-contest-selector {
+    margin-bottom: 28px;
+  }
+  
+  .sport-contest-selector-label {
+    margin-bottom: 12px;
+  
+    color: #ff2d87;
+  
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+  }
+  
+  .sport-contest-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .sport-contest-button {
+    position: relative;
+  
+    min-width: 170px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  
+    padding: 14px 16px;
+  
+    background: #131313;
+    color: #ffffff;
+  
+    border: 1px solid #303030;
+    border-radius: 10px;
+  
+    font-family: inherit;
+    cursor: pointer;
+  
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .sport-contest-button:hover {
+    background: #181818;
+    border-color: #555555;
+  }
+  
+  .sport-contest-button.active {
+    border-color: #ff2d87;
+    background: #181818;
+  }
+  
+  .sport-contest-button-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  
+  .sport-contest-button-info {
+    color: #777777;
+  
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .sport-contest-closed {
+    margin-top: 4px;
+  
+    color: #ff5c5c;
+  
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  
+  
+  /* =========================================
+     HEADER
+  ========================================= */
+  
+  .sport-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  
+    padding: 30px;
+  
+    background: #111111;
+  
+    border: 1px solid #303030;
+    border-radius: 14px;
+  
+    margin-bottom: 24px;
+  }
+  
+  .sport-header-left {
+    min-width: 0;
+  }
+  
+  .sport-small-title {
+    margin: 0 0 10px;
+  
+    color: #ff2d87;
+  
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  
+  .sport-header-left h1 {
+    margin: 0 0 9px;
+  
+    color: #ffffff;
+  
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  
+  .sport-header-description {
+    margin: 0;
+  
+    color: #777777;
+  
+    font-size: 0.95rem;
+  }
+  
+  .sport-contest-close-time {
+    margin: 13px 0 0;
+  
+    color: #b0b0b0;
+  
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .sport-contest-close-time.closed {
+    color: #ff5c5c;
+  }
+  
+  
+  /* =========================================
+     HEADER STATS
+  ========================================= */
+  
+  .sport-contest-info {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  
+    flex-shrink: 0;
+  }
+  
+  .sport-contest-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .contest-stat-label {
+    color: #686868;
+  
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .contest-stat-value {
+    color: #ffffff;
+  
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  
+  .pot-highlight {
+    color: #ff2d87;
+  }
+  
+  .sport-header-divider {
+    width: 1px;
+    height: 42px;
+  
+    background: #303030;
+  }
+  
+  
+  /* =========================================
+     GAMES LIST
+  ========================================= */
+  
+  .sport-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .sport-loading,
+  .sport-no-games {
+    padding: 30px;
+  
+    background: #111111;
+    color: #777777;
+  
+    border: 1px solid #303030;
+    border-radius: 12px;
+  
+    text-align: center;
+  }
+  
+  
+  /* =========================================
+     GAME ROW
+  ========================================= */
+  
+  .sport-game-row {
+    display: grid;
+  
+    grid-template-columns:
+      130px
+      minmax(420px, 1fr)
+      140px;
+  
+    align-items: center;
+  
+    gap: 22px;
+  
+    padding: 18px 20px;
+  
+    background: #111111;
+  
+    border: 1px solid #2d2d2d;
+    border-radius: 12px;
+  
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+  
+  .sport-game-row:hover {
+    background: #141414;
+    border-color: #3a3a3a;
+  }
+  
+  
+  /* =========================================
+     GAME INFO
+  ========================================= */
+  
+  .sport-game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .league-label {
+    color: #ff2d87;
+  
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+  }
+  
+  .sport-game-time {
+    color: #b1b1b1;
+  
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  
+  .community-picks-label {
+    color: #555555;
+  
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     TEAM PICKS
+  ========================================= */
+  
+  .sport-game-picks {
+    display: grid;
+  
+    grid-template-columns:
+      minmax(0, 1fr)
+      38px
+      minmax(0, 1fr);
+  
+    align-items: center;
+  
+    gap: 12px;
+  }
+  
+  .sport-pick-button {
+    position: relative;
+  
+    min-height: 64px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 12px;
+  
+    padding: 14px 16px 17px;
+  
+    background: #171717;
+    color: #e5e5e5;
+  
+    border: 1px solid #343434;
+    border-radius: 9px;
+  
+    font-family: inherit;
+  
+    cursor: pointer;
+  
+    overflow: hidden;
+  
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+  
+
+  
+  .sport-pick-button.selected {
+    background: #1c1418;
+    border-color: #ff2d87;
+    color: #ffffff;
+  }
+  
+  .sport-pick-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  
+  .sport-team-name {
+    min-width: 0;
+  
+    font-size: 0.9rem;
+    font-weight: 700;
+  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .pick-percentage {
+    margin-left: auto;
+  
+    color: #828282;
+  
+    font-size: 0.82rem;
+    font-weight: 800;
+  
+    flex-shrink: 0;
+  }
+  
+  .sport-pick-button.selected .pick-percentage {
+    color: #ff2d87;
+  }
+  
+  
+  /* =========================================
+     PERCENTAGE BAR
+  ========================================= */
+  
+  .percentage-bar {
+    position: absolute;
+  
+    left: 0;
+    right: 0;
+    bottom: 0;
+  
+    height: 4px;
+  
+    background: #252525;
+  }
+  
+  .percentage-bar-fill {
+    height: 100%;
+  
+    background: #ff2d87;
+  
+    transition: width 0.3s ease;
+  }
+  
+  
+  /* =========================================
+     VS
+  ========================================= */
+  
+  .sport-vs {
+    color: #555555;
+  
+    font-size: 0.7rem;
+    font-weight: 800;
+  
+    text-align: center;
+  }
+  
+  
+  /* =========================================
+     PICK STATUS
+  ========================================= */
+  
+  .sport-selection-status {
+    color: #6f6f6f;
+  
+    font-size: 0.78rem;
+    font-weight: 600;
+  
+    text-align: right;
+  }
+  
+  .sport-selection-status span {
+    color: #ff2d87;
+    font-weight: 700;
+  }
+  
+  
+  /* =========================================
+     CONFIRM PICKS
+  ========================================= */
+  
+  .sport-confirm-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  
+    gap: 20px;
+  
+    margin-top: 24px;
+    padding: 18px 20px;
+  
+    background: #111111;
+  
+    border: 1px solid #303030;
+    border-radius: 12px;
+  }
+  
+  .sport-pick-progress {
+    color: #777777;
+  
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .sport-confirm-button {
+    min-width: 170px;
+  
+    padding: 13px 20px;
+  
+    background: #ff2d87;
+    color: #ffffff;
+  
+    border: 1px solid #ff2d87;
+    border-radius: 8px;
+  
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .sport-confirm-button:hover:not(:disabled) {
+    background: #e92778;
+    border-color: #e92778;
+  }
+  
+  .sport-confirm-button:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  
+  .sport-confirm-button:disabled {
+    background: #242424;
+    color: #5e5e5e;
+  
+    border-color: #303030;
+  
+    cursor: not-allowed;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  
+  @media (max-width: 1150px) {
+    .sport-page-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .sport-contest-info {
+      width: 100%;
+    }
+  
+    .sport-game-row {
+      grid-template-columns: 100px 1fr;
+    }
+  
+    .sport-selection-status {
+      grid-column: 2;
+      text-align: left;
+    }
+  }
+  
+  @media (max-width: 850px) {
+    .sport-main {
+      margin-left: 0;
+      padding: 25px 20px;
+    }
+  
+    .sport-game-row {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .sport-game-picks {
+      width: 100%;
+    }
+  
+    .sport-selection-status {
+      text-align: left;
+    }
+  
+    .sport-contest-info {
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+  
+    .sport-header-divider {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .sport-page-header {
+      padding: 22px;
+    }
+  
+    .sport-header-left h1 {
+      font-size: 1.55rem;
+    }
+  
+    .sport-game-picks {
+      grid-template-columns: 1fr;
+    }
+  
+    .sport-vs {
+      padding: 2px 0;
+    }
+  
+    .sport-contest-button {
+      width: 100%;
+    }
+  
+    .sport-confirm-section {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  
+    .sport-confirm-button {
+      width: 100%;
+    }
+  }
