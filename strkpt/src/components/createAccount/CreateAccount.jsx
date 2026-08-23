@@ -94,7 +94,10 @@ function CreateAccount() {
 
   return (
     <div className="signup-page">
-      <h1>StreakPicks</h1>
+      <h1 className="signup-logo">
+  <span className="logo-streak">Streak</span>
+  <span className="logo-picks">Picks</span>
+</h1>
 
       <main className="signup-content">
         <h2>Sign Up and Start Picking!</h2>

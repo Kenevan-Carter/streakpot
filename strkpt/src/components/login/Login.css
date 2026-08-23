@@ -81,7 +81,7 @@
     font-size: 1.15rem;
     font-weight: 600;
   
-    color: #ffffff;
+    color: #666565;
   }
   
   
@@ -195,5 +195,18 @@
   
   .login-button:active {
     transform: translateY(0);
+  }
+  .login-logo {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+  }
+  
+  .logo-streak {
+    color: white;
+  }
+  
+  .logo-picks {
+    color: #ff2d8d;
   }
   

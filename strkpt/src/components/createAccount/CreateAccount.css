@@ -75,7 +75,7 @@
   
     font-size: 1.6rem;
     font-weight: 700;
-    color: white;
+    color: #666565;
   }
   
   .signup-subtitle {
@@ -218,4 +218,16 @@
   .return-button:hover{
     background-color: #ff28db;
     transform: translateY(-2)
+  }
+  .signup-logo {
+    font-size: 3rem;
+    font-weight: 800;
+  }
+  
+  .logo-streak {
+    color: white;
+  }
+  
+  .logo-picks {
+    color: #ff2d8d;
   }

@@ -13,7 +13,13 @@
     margin-bottom: 32px;
   }
   
-  .profile-small-title,
+  .profile-small-title h1{
+    color: #ff2d87;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
   .profile-section-label {
     color: #ff2d87;
     font-size: 0.8rem;
@@ -21,9 +27,12 @@
     letter-spacing: 2px;
     margin-bottom: 10px;
   }
-  
+  .profile-small-title h1{
+    color: White;
+  }
   .profile-header h1 {
     margin: 0;
+
     font-size: 2rem;
   }
   
@@ -173,4 +182,82 @@
     gap: 15px;
   
     color: #777;
+  }
+  .username-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .username-display-button {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  
+    background: transparent;
+    border: none;
+  
+    color: #777777;
+    font-family: inherit;
+    font-size: 0.95rem;
+  
+    cursor: pointer;
+  }
+  
+  .username-edit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .username-edit input {
+    width: 180px;
+  
+    padding: 9px 12px;
+  
+    background: #171717;
+    color: #ffffff;
+  
+    border: 1px solid #3a3a3a;
+    border-radius: 7px;
+  
+    font-family: inherit;
+    outline: none;
+  }
+  
+  .username-edit input:focus {
+    border-color: #ff2d87;
+  }
+  
+  .username-save-button,
+  .username-cancel-button {
+    padding: 9px 14px;
+  
+    border-radius: 7px;
+  
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+  }
+  
+  .username-save-button {
+    background: #ff2d87;
+    color: #ffffff;
+  
+    border: 1px solid #ff2d87;
+  }
+  
+  .username-cancel-button {
+    background: transparent;
+    color: #888888;
+  
+    border: 1px solid #3a3a3a;
+  }
+  
+  .username-save-button:disabled,
+  .username-cancel-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }

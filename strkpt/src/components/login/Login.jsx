@@ -98,9 +98,12 @@ function Login() {
 
   return (
     <div className="login-page">
-      <h1>Streak Bet</h1>
+  <h1 className="login-logo">
+    <span className="logo-streak">Streak</span>
+    <span className="logo-picks">Picks</span>
+  </h1>
 
-      <main className="login-content">
+  <main className="login-content">
         <h2>Log In</h2>
 
         <p className="login-subtitle">
