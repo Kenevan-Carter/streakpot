@@ -33,7 +33,7 @@ function SportSelection() {
       isImage: true,
     },
     {
-      name: "Soccer",
+      name: "EPL",
       icon: eplLogo,
       isImage: true,
     },
@@ -48,8 +48,8 @@ function SportSelection() {
       navigate("/sports/mlb");
     } else if (sportName === "NHL") {
       navigate("/sports/nhl");
-    } else if (sportName === "Soccer") {
-      navigate("/sports/soccer");
+    } else if (sportName === "EPL") {
+      navigate("/sports/epl");
     }
   };
 
