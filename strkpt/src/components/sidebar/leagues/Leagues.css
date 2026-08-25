@@ -1,0 +1,128 @@
+.leagues-page {
+    min-height: 100vh;
+    background: #080808;
+    color: white;
+  }
+  
+  /* MAIN PAGE CONTENT */
+  .leagues-main {
+    margin-left: 225px; /* SAME WIDTH AS SIDEBAR */
+    min-height: 100vh;
+  
+    padding: 60px 70px;
+  
+    box-sizing: border-box;
+  }
+  .leagues-header {
+    margin-bottom: 40px;
+  }
+  
+  
+  .leagues-header h1 {
+    font-size: 2.8rem;
+    color: #ff2d8d;
+    margin-bottom: 2rem;
+  }
+  
+  .leagues-description {
+    color: #8f8f95;
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  
+  /* 2x2 GRID */
+  
+  .league-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+  }
+  
+  
+  /* INDIVIDUAL CARD */
+  
+  .league-option-card {
+    align-items: center;
+    min-height: 190px;
+  
+    background: #111113;
+    border: 1px solid #29292d;
+    border-radius: 16px;
+  
+    padding: 28px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  
+    color: white;
+  
+    cursor: pointer;
+    text-align: center;
+  
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+  
+  .league-option-card:hover {
+    transform: translateY(-3px);
+    border-color: #ff2d8d;
+    background: #151517;
+  }
+  
+  
+  /* ICON */
+  
+  .league-option-icon {
+    width: 42px;
+    height: 42px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 10px;
+  
+    background: rgba(255, 45, 141, 0.1);
+    color: #ff2d8d;
+  
+    font-size: 1.4rem;
+  
+    margin-bottom: 26px;
+  }
+  
+  
+  /* TEXT */
+  
+  .league-option-card h2 {
+    text-align: center;
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: White;
+  }
+  
+  .league-option-card p {
+    margin: 0;
+    color: #8f8f95;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+  
+  
+  /* RESPONSIVE */
+  
+  @media (max-width: 850px) {
+    .leagues-main {
+      padding: 40px 30px;
+    }
+  
+    .league-options-grid {
+      grid-template-columns: 1fr;
+    }
+  }

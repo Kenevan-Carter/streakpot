@@ -12,8 +12,9 @@ import Sports from "./pages/sports/Sports";
 import Admin from "./pages/admin/Admin";
 import UserTable from "./pages/admin/usertable/UserTable";
 import CreateContest from "./pages/admin/createcontest/CreateContest";
-import MyBets from "./pages/mybets/MyBets";
-import Profile from "./pages/profile/Profile";
+import MyBets from "./components/sidebar/mybets/MyBets";
+import Leagues from "./components/sidebar/leagues/Leagues";
+import Profile from "./components/sidebar/profile/Profile";
 
 import AdminRoute from "./components/adminroute/AdminRoute";
 import ProtectedRoute from "./components/protectedroute/ProtectedRoute";
@@ -52,6 +53,14 @@ function App() {
           element={
             <ProtectedRoute>
               <MyBets />
+            </ProtectedRoute>
+          }
+        />
+                <Route
+          path="/leagues"
+          element={
+            <ProtectedRoute>
+              <Leagues />
             </ProtectedRoute>
           }
         />

@@ -52,23 +52,11 @@ function Header({ coins, streak }) {
       <div className="header-account">
         <div className="header-stat">
           <span className="header-stat-label">
-            Coins
+            Active Contests
           </span>
 
           <span className="header-stat-value">
             {coins.toLocaleString()}
-          </span>
-        </div>
-
-        <div className="header-divider" />
-
-        <div className="header-stat">
-          <span className="header-stat-label">
-            Streak
-          </span>
-
-          <span className="header-stat-value">
-            {streak} 🔥
           </span>
         </div>
 

@@ -15,7 +15,7 @@ export function getSportDisplayName(
         return "HOCKEY";
   
       case "EPL":
-        return "SOCCER";
+        return "EPL";
   
       default:
         return selectedSport;

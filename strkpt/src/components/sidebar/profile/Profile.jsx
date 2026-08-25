@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase";
-import Sidebar from "../../components/sidebar/Sidebar";
+import { supabase } from "../../../lib/supabase";
+import Sidebar from "../Sidebar";
 import "./Profile.css";
 
 function Profile() {

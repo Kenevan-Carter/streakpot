@@ -48,7 +48,7 @@ function Sidebar() {
       <aside className="sidebar">
 
         <div className="sidebar-logo">
-          Streak<span>Pick</span>
+          Streak<span>Picks</span>
         </div>
 
         <nav className="sidebar-nav">
@@ -96,6 +96,12 @@ function Sidebar() {
           >
             Leaderboard
           </button>
+          <button
+          className="sidebar-link"
+          onClick={() => navigate("/leagues")}
+        >
+          <span>Leagues</span>
+        </button>
 
         </nav>
 

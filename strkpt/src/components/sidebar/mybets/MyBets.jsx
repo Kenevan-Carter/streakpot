@@ -1,21 +1,18 @@
+import { useEffect, useState } from "react";
+
+import Sidebar from "../Sidebar";
+
 import {
-    useEffect,
-    useState,
-  } from "react";
-  
-  import Sidebar from "../../components/sidebar/Sidebar";
-  
-  import {
-    loadMyBets,
-    formatMyBetGameTime,
-    formatMyBetDate,
-    getMyBetCountdown,
-    getPickForGame,
-    getSelectedPastContest,
-    countCorrectPicks,
-  } from "../../utils/myBets";
-  
-  import "./MyBets.css";
+  loadMyBets,
+  formatMyBetGameTime,
+  formatMyBetDate,
+  getMyBetCountdown,
+  getPickForGame,
+  getSelectedPastContest,
+  countCorrectPicks,
+} from "../../../utils/myBets";
+
+import "./MyBets.css";
   
   function MyBets() {
     // --------------------------------------------------

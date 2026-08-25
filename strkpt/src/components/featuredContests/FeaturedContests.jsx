@@ -5,23 +5,29 @@ function FeaturedContests() {
     {
       id: 1,
       sport: "NBA",
-      title: "Friday Night Picks",
-      games: 8,
+      title: "NBA Weekend",
+      games: 13,
       entryFee: 3,
+      pot: 5023454,
+      close: "16:10:02"
     },
     {
       id: 2,
       sport: "NFL",
-      title: "Week 1 Challenge",
+      title: "NFL Week 1",
       games: 12,
       entryFee: 5,
+      pot: 127453,
+      close: "24:40:29"
     },
     {
       id: 3,
-      sport: "MLB",
-      title: "Daily Picks",
-      games: 6,
-      entryFee: 3,
+      sport: "EPL",
+      title: "Gameweek 2",
+      games: 10,
+      entryFee: 1,
+      pot:468274,
+      close: "48:16:52"
     },
   ];
 
@@ -49,7 +55,7 @@ function FeaturedContests() {
               </span>
 
               <span className="featured-badge">
-                FEATURED
+                {contest.close}
               </span>
             </div>
 
@@ -73,6 +79,16 @@ function FeaturedContests() {
 
                 <span className="contest-info-value">
                   ${contest.entryFee}
+                </span>
+              </div>
+
+              <div>
+                <span className="contest-info-label">
+                  Current Pot
+                </span>
+
+                <span className="contest-info-value">
+                  ${contest.pot}
                 </span>
               </div>
             </div>
