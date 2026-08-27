@@ -26,7 +26,7 @@ import {
 
 import {
   getRandomFortune,
-} from "../pages/sports/fortune/Fortunes";
+} from "../pages/sports/fortune/fortunes";
 
 export function useSportsPage(sport) {
   // --------------------------------------------------
