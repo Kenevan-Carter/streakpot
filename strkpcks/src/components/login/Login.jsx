@@ -1,8 +1,10 @@
 // src/components/login/Login.jsx
 
-import { supabase } from "../../lib/supabase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { supabase } from "../../lib/supabase";
+
 import "./Login.css";
 
 function Login() {
@@ -11,14 +13,21 @@ function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  // --------------------------------------------------
+  // NORMAL LOGIN
+  // --------------------------------------------------
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      // Make sure normal users are not treated as guests
+      localStorage.removeItem("isGuest");
+
       const { data, error } =
         await supabase.auth.signInWithPassword({
           email: emailOrUsername,
-          password: password,
+          password,
         });
 
       if (error) {
@@ -71,39 +80,42 @@ function Login() {
         return;
       }
 
-      console.log(
-        "Logged in user:",
-        data.user
-      );
-
-      console.log(
-        "Session:",
-        data.session
-      );
-
-      console.log(
-        "Profile:",
-        profile
-      );
+      console.log("Logged in user:", data.user);
+      console.log("Session:", data.session);
+      console.log("Profile:", profile);
 
       navigate("/home");
     } catch (error) {
       console.error(
-        "UNEXPECTED LOGIN ERROR:"
+        "UNEXPECTED LOGIN ERROR:",
+        error
       );
-
-      console.error(error);
     }
+  };
+
+  // --------------------------------------------------
+  // GUEST LOGIN
+  // --------------------------------------------------
+
+  const handleGuestLogin = () => {
+    localStorage.setItem("isGuest", "true");
+
+    navigate("/home");
   };
 
   return (
     <div className="login-page">
-  <h1 className="login-logo">
-    <span className="logo-streak">Streak</span>
-    <span className="logo-picks">Picks</span>
-  </h1>
+      <h1 className="login-logo">
+        <span className="logo-streak">
+          Streak
+        </span>
 
-  <main className="login-content">
+        <span className="logo-picks">
+          Picks
+        </span>
+      </h1>
+
+      <main className="login-content">
         <h2>Log In</h2>
 
         <p className="login-subtitle">
@@ -191,6 +203,18 @@ function Login() {
             Create Account
           </button>
         </form>
+
+        <div className="guest-divider">
+          <span>OR</span>
+        </div>
+
+        <button
+          className="guest-button"
+          type="button"
+          onClick={handleGuestLogin}
+        >
+          Explore as Guest
+        </button>
       </main>
     </div>
   );

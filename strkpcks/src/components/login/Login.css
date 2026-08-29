@@ -209,4 +209,80 @@
   .logo-picks {
     color: #ff2d8d;
   }
+
+  .guest-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 20px 18px;
   
+    background: transparent;
+    border: 1px solid #3a3a3f;
+    border-radius: 12px;
+  
+    color: #cfcfd4;
+  
+    font-size: 0.95rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .guest-button:hover {
+    background: rgba(255, 45, 141, 0.08);
+    border-color: #ff2d8d;
+    color: white;
+  
+    transform: translateY(-2px);
+  }
+  
+  .guest-divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 22px 0;
+    color: #ffffff;
+    font-size: 0.75rem;
+  }
+  
+  .guest-divider::before,
+  .guest-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #2a2a2e;
+  }
+  
+  .guest-button {
+    width: 100%;
+    padding: 14px 18px;
+  
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 12px;
+  
+    color: #cfcfd4;
+    font-size: 0.95rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .guest-button:hover {
+    background: rgba(255, 45, 141, 0.08);
+    border-color: #ff2d8d;
+    color: white;
+    transform: translateY(-2px);
+  }

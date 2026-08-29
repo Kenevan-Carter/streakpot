@@ -2,6 +2,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 import Login from "./components/login/Login";
@@ -9,9 +10,11 @@ import CreateAccount from "./components/createAccount/CreateAccount";
 
 import Home from "./pages/home/Home";
 import Sports from "./pages/sports/Sports";
+
 import Admin from "./pages/admin/Admin";
 import UserTable from "./pages/admin/usertable/UserTable";
 import CreateContest from "./pages/admin/createcontest/CreateContest";
+
 import MyBets from "./components/sidebar/mybets/MyBets";
 import Leagues from "./components/sidebar/leagues/Leagues";
 import Profile from "./components/sidebar/profile/Profile";
@@ -19,92 +22,218 @@ import Profile from "./components/sidebar/profile/Profile";
 import AdminRoute from "./components/adminroute/AdminRoute";
 import ProtectedRoute from "./components/protectedroute/ProtectedRoute";
 
+
+// ==========================================================
+// ROUTE THAT ALLOWS:
+// - LOGGED IN USERS
+// - GUEST USERS
+// ==========================================================
+
+function GuestAccessibleRoute({ children }) {
+  const isGuest =
+    localStorage.getItem("isGuest") === "true";
+
+  // Guests can access this page
+  if (isGuest) {
+    return children;
+  }
+
+  // Normal users still need authentication
+  return (
+    <ProtectedRoute>
+      {children}
+    </ProtectedRoute>
+  );
+}
+
+
+// ==========================================================
+// ROUTE THAT BLOCKS GUESTS
+// ==========================================================
+
+function GuestBlockedRoute({ children }) {
+  const isGuest =
+    localStorage.getItem("isGuest") === "true";
+
+  if (isGuest) {
+    return (
+      <Navigate
+        to="/home"
+        replace
+      />
+    );
+  }
+
+  return children;
+}
+
+
+// ==========================================================
+// APP
+// ==========================================================
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* PUBLIC ROUTES */}
+        {/* ==================================================
+            PUBLIC ROUTES
+        ================================================== */}
 
         <Route
           path="/"
-          element={<Login />}
+          element={
+            <Login />
+          }
         />
 
         <Route
           path="/create-account"
-          element={<CreateAccount />}
+          element={
+            <CreateAccount />
+          }
         />
 
 
-        {/* PROTECTED ROUTES */}
+        {/* ==================================================
+            HOME
+            NORMAL USERS + GUESTS
+        ================================================== */}
 
         <Route
           path="/home"
           element={
-            <ProtectedRoute>
+            <GuestAccessibleRoute>
               <Home />
-            </ProtectedRoute>
+            </GuestAccessibleRoute>
           }
         />
+
+
+        {/* ==================================================
+            MY BETS
+            NORMAL USERS + GUESTS
+        ================================================== */}
 
         <Route
           path="/mybets"
           element={
-            <ProtectedRoute>
+            <GuestAccessibleRoute>
               <MyBets />
-            </ProtectedRoute>
+            </GuestAccessibleRoute>
           }
         />
-                <Route
-          path="/leagues"
-          element={
-            <ProtectedRoute>
-              <Leagues />
-            </ProtectedRoute>
-          }
-        />
+
+
+        {/* ==================================================
+            LEAGUES
+            NORMAL USERS + GUESTS
+        ================================================== */}
 
         <Route
-          path="/profile"
+          path="/leagues"
           element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
+            <GuestAccessibleRoute>
+              <Leagues />
+            </GuestAccessibleRoute>
           }
         />
 
-        {/* ONE ROUTE FOR ALL SPORTS */}
+
+        {/* ==================================================
+            SPORTS
+            NORMAL USERS + GUESTS
+        ================================================== */}
 
         <Route
           path="/sports/:sport"
           element={
-            <ProtectedRoute>
+            <GuestAccessibleRoute>
               <Sports />
-            </ProtectedRoute>
+            </GuestAccessibleRoute>
           }
         />
 
 
-        {/* ADMIN ROUTES */}
+        {/* ==================================================
+            PROFILE
+            LOGGED-IN USERS ONLY
+        ================================================== */}
 
-        <Route path="/admin" element={<Admin />} />
+        <Route
+          path="/profile"
+          element={
+            <GuestBlockedRoute>
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            </GuestBlockedRoute>
+          }
+        />
+
+
+        {/* ==================================================
+            ADMIN HOME
+            ADMIN ONLY
+            GUESTS BLOCKED
+        ================================================== */}
+
+        <Route
+          path="/admin"
+          element={
+            <GuestBlockedRoute>
+              <AdminRoute>
+                <Admin />
+              </AdminRoute>
+            </GuestBlockedRoute>
+          }
+        />
+
+
+        {/* ==================================================
+            ADMIN USER TABLE
+        ================================================== */}
 
         <Route
           path="/admin/usertable"
           element={
-            <AdminRoute>
-              <UserTable />
-            </AdminRoute>
+            <GuestBlockedRoute>
+              <AdminRoute>
+                <UserTable />
+              </AdminRoute>
+            </GuestBlockedRoute>
           }
         />
+
+
+        {/* ==================================================
+            ADMIN CREATE CONTEST
+        ================================================== */}
 
         <Route
           path="/admin/createcontest"
           element={
-            <AdminRoute>
-              <CreateContest />
-            </AdminRoute>
+            <GuestBlockedRoute>
+              <AdminRoute>
+                <CreateContest />
+              </AdminRoute>
+            </GuestBlockedRoute>
+          }
+        />
+
+
+        {/* ==================================================
+            UNKNOWN ROUTES
+        ================================================== */}
+
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to="/"
+              replace
+            />
           }
         />
 
